@@ -4,4 +4,7 @@ module prelude(
     output logic [7:0] rio_out,
 );
 
+    logic [7:0] pc; // program counter
+
+
 endmodule

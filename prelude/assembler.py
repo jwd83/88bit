@@ -10,6 +10,7 @@
 
 
 import sys
+import os
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
             rom = parse_assembly_file(f)
             write_binary_file(rom, f"{sys.argv[1]}.bin")
             write_verilog_file(rom, f"{sys.argv[1]}.sv")
+            write_turing_complete_file(rom, f"{sys.argv[1]}.txt")
     except FileNotFoundError:
         print(f"File '{sys.argv[1]}' not found")
         sys.exit(1)
@@ -224,10 +226,30 @@ def parse_assembly_file(file):
 
 
 def write_binary_file(rom, path):
-    pass
+    # check if file already exists, if so prompt to overwrite
+    # if not, write the binary file
+    if os.path.exists(path):
+        print(f"File '{path}' already exists. Overwrite? [y/n]")
+        response = input()
+        if response.lower() != "y":
+            print("Skipping binary file write")
+            return
+        else:
+            # delete the existing file
+            os.remove(path)
+
+    with open(path, "wb") as f:
+        for instruction in rom:
+            f.write(bytes([int(instruction, 2)]))
+
+    print(f"Binary file written to '{path}'")
 
 
 def write_verilog_file(rom, path):
+    pass
+
+
+def write_turing_complete_file(rom, path):
     pass
 
 

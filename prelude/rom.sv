@@ -4,7 +4,7 @@ module rom (
 );
 
     case (address)
-        8'b00000000: data = 8'b00000101; // load R0 with 0
+        8'b00000000: data = 8'b00000101; // load R0 with 5
         8'b00000001: data = 8'b00000000;
         8'b00000010: data = 8'b00000000;
         8'b00000011: data = 8'b00000000;

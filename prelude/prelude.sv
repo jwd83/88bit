@@ -51,6 +51,9 @@ module prelude(
 
     always_comb begin
         next_pc = pc + 1;
+
+        // todo: need to do instruction decoding and signaling
+
     end
 
     // advance the program counter, branching

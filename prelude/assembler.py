@@ -11,11 +11,6 @@
 
 import sys
 
-current_address = 0
-labels = {}
-instructions = []
-rom = []
-
 
 def main():
     # check if we have the correct number of arguments (1)
@@ -35,8 +30,9 @@ def main():
 
 
 def parse_assembly_file(file):
-    instructions = []
-    rom = [0] * 256
+    rom = []
+    labels = {}
+
     lines = file.readlines()
     cleaned_lines = []
 
@@ -98,35 +94,133 @@ def parse_assembly_file(file):
     print("Generating instructions ...")
     print("-" * 80)
 
+    register_names = {
+        "R0": "000",
+        "R1": "001",
+        "R2": "010",
+        "R3": "011",
+        "R4": "100",
+        "R5": "101",
+        "R6": "110",
+        "R7": "111",
+        # register alias names
+        "RIO": "111",
+    }
+
     base_opcodes = {
         # load IMMEDIATE
         "LOAD": "00000000",
-        # register COPY
         # ALU calculate
+        "OR": "01000000",
+        "NAND": "01000001",
+        "NOR": "01000010",
+        "AND": "01000011",
+        "ADD": "01000100",
+        "SUB": "01000101",
+        "XOR": "01000110",
+        "SHL": "01000111",
+        # register COPY
         "COPY": "10000000",
         # BRANCH
-        "OR": "000000",
-        "NAND": "000001",
-        "NOR": "000010",
-        "AND": "000011",
-        "ADD": "000100",
-        "SUB": "000101",
-        "XOR": "000110",
-        "SHL": "000111",
+        # 000|Never|No op, never take branch
+        # 001|R3 ==  0
+        # 010|R3 < 0|signed
+        # 011|R3 <= 0|signed
+        # 100|Always
+        # 101|R3 != 0
+        # 110|R3 >= 0|signed
+        # 111|R3 > 0|signed
+        "BRN": "11000000",  # branch never (nop)
+        "NOP": "11000000",  # branch never (nop alias)
+        "BZ": "11000001",  # branch if equal zero
+        "BLT": "11000010",  # branch if less than zero (signed)
+        "BLE": "11000011",  # branch if less than or equal to zero (signed)
+        "BRA": "11000100",  # branch always
+        "JUMP": "11000100",  # branch always (alias)
+        "BNZ": "11000101",  # branch if not equal zero
+        "BGE": "11000110",  # branch if greater than or equal to zero (signed)
+        "BGT": "11000111",  # branch if greater than zero (signed)
     }
 
+    address = 0
     for line in cleaned_lines:
         # if a line is a label ignore it for this pass
         if line[-1] == ":":
+            print(f"> LABEL: '{label}' at address {address}")
+
             continue
         else:
-            # display the instruction to encode
-            print(f"{line}")
 
             # split the line into tokens
             tokens = line.split(" ")
 
             # determine opcode or exit if invalid
+            if tokens[0] not in base_opcodes:
+                print(f"ERROR: Invalid opcode '{tokens[0]}'")
+                sys.exit(3)
+
+            # get the base opcode
+            opcode = base_opcodes[tokens[0]]
+
+            # special logic for load and copy instructions
+
+            if tokens[0] == "LOAD":
+                # check for two tokens
+                if len(tokens) != 2:
+                    print(f"ERROR: LOAD instruction requires immediate value")
+                    sys.exit(4)
+
+                # check if the immediate value is a label
+                if tokens[1] in labels:
+                    immediate = labels[tokens[1]]
+                else:
+                    try:
+                        immediate = int(tokens[1])
+                    except ValueError:
+                        print(f"ERROR: Invalid immediate value '{tokens[1]}'")
+                        sys.exit(5)
+
+                if immediate > 63 or immediate < 0:
+                    print(f"ERROR: Immediate value '{immediate}' out of range")
+                    sys.exit(6)
+
+                # convert the immediate value to an 8 bit binary string
+                immediate = format(immediate, "08b")
+                opcode = immediate
+
+            if tokens[0] == "COPY":
+                # check for three tokens
+                if len(tokens) != 3:
+                    print(f"ERROR: COPY instruction requires two registers")
+                    sys.exit(7)
+
+                # copy instruction
+                # copy mode
+                # |   src
+                # |   |   dst
+                # |   |   |
+                # 10 xxx yyy
+
+                # check if source and destination are valid registers
+                if tokens[1] not in register_names or tokens[2] not in register_names:
+                    print(f"ERROR: Invalid registers named in COPY instruction")
+                    sys.exit(8)
+
+                opcode = "10" + register_names[tokens[1]] + register_names[tokens[2]]
+
+            rom.append(opcode)
+
+            print(f"{address:03X}:{opcode}:{line}")
+
+            address += 1
+
+    print("-" * 80)
+    print("ROM Image")
+    print("-" * 80)
+    for instruction in rom:
+        print(instruction)
+
+    return rom
 
 
 def write_binary_file(rom, path):

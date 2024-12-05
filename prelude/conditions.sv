@@ -19,7 +19,8 @@ module conditions(
 
     always_comb begin
 
-        logic r_eq_zero = (r3 == 8'b00000000);
+        // or all of r3 bits together then invert to get if all bits are zero
+        logic r_eq_zero = ~|r3;
 
         // check if top bit set for less than zero
         logic r_lt_zero = r3[7];

@@ -23,10 +23,12 @@ TODO:
 256 bytes of program ROM
 
 ## Instruction Types
-00 - IMMEDIATE (load lower bits into r0)
-01 - CALCULATE (see calc ops)
-10 - COPY (see copy ops)
-11 - BRANCH
+upper 2 bits|instruction type
+-|-
+00zzzzzz|IMMEDIATE (load lower bits into r0)
+01zzzzzz|CALCULATE (see calc ops)
+10zzzzzz|COPY (see copy ops)
+11zzzzzz|BRANCH
 
 ### 00 - IMMEDIATE
 Set R0 = lower 6 bit of instruction

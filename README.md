@@ -8,7 +8,7 @@ classic games roam free, untethered from the shackles of DRM.
 
 TODO: 
 
-Single cycle 8 bit CPU based around overture from turing complete
-Single cycle 8 bit CPU based around leg from turing complete
-Multi cycle 8 bit CPU
-Multicycle RISC-V RV32I CPU
+* Single cycle 8 bit CPU based around overture from turing complete
+* Single cycle 8 bit CPU based around leg from turing complete
+* Multi cycle 8 bit CPU
+* Multicycle RISC-V RV32I CPU

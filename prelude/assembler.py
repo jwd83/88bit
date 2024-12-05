@@ -1,4 +1,4 @@
-# my assembler for the prelude ISA
+# my assembler for the prelude ISA (aka Overture from Turing Complete)
 # take in a prelude assembly file and output a 256 byte binary file
 # along with verilog LUT of the ROM image
 
@@ -82,6 +82,12 @@ def parse_assembly_file(file):
     for line in cleaned_lines:
         if line[-1] == ":":
             label = line[:-1]
+            # check if the label is a duplicate
+            if label in labels:
+                print(
+                    f"ERROR: Duplicate label '{label}' at address {address} and {labels[label]}"
+                )
+                sys.exit(2)
             labels[label] = address
             print(f"> LABEL: '{label}' at address {address}")
         else:

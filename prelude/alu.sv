@@ -13,6 +13,7 @@ module alu (
 // 000100|ADD|out = in_a + in_b
 // 000101|SUB|out = in_a - in_b
 // 000110|XOR|out = in_a ^ in_b, Prelude specific
+// 000111|SHL|out = in_a << in_b, Prelude specific (future unimplemented)
 
     casez (alu_op)
         6'b000000: out = in_a | in_b;

@@ -94,6 +94,40 @@ def parse_assembly_file(file):
             print(f"{address:03X}: {line}")
             address += 1
 
+    print("-" * 80)
+    print("Generating instructions ...")
+    print("-" * 80)
+
+    base_opcodes = {
+        # load IMMEDIATE
+        "LOAD": "00000000",
+        # register COPY
+        # ALU calculate
+        "COPY": "10000000",
+        # BRANCH
+        "OR": "000000",
+        "NAND": "000001",
+        "NOR": "000010",
+        "AND": "000011",
+        "ADD": "000100",
+        "SUB": "000101",
+        "XOR": "000110",
+        "SHL": "000111",
+    }
+
+    for line in cleaned_lines:
+        # if a line is a label ignore it for this pass
+        if line[-1] == ":":
+            continue
+        else:
+            # display the instruction to encode
+            print(f"{line}")
+
+            # split the line into tokens
+            tokens = line.split(" ")
+
+            # determine opcode or exit if invalid
+
 
 def write_binary_file(rom, path):
     pass

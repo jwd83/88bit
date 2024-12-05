@@ -6,20 +6,21 @@ classic games roam free, untethered from the shackles of DRM.
 ...or at least my FPGA playground for now.
 
 
-TODO: 
+TODO:
 
 * Prelude - A single cycle 8 bit CPU based around overture from turing complete
 * Single cycle 8 bit CPU based around leg from turing complete
 * Multi cycle 8 bit CPU
-* Multicycle RISC-V RV32I CPU
+* Multi cycle RISC-V RV32I CPU
 
 
 # Prelude (Overture)
-
+8 bit single cycle processor
 8 bit instruction words
-6 registers general purpose registers (r0-r5) 
-1 i/o register (r6)
-256 bytes of program ROM 
+6 general purpose registers (r0-r5)
+1 i/o register (r6/rio)
+1 program counter (pc) register
+256 bytes of program ROM
 
 ## Instruction Types
 00 - IMMEDIATE (load lower bits into r0)

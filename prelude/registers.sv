@@ -7,6 +7,7 @@ module registers(
     input logic clk,
     output logic [7:0] out_a,
     output logic [7:0] out_b,
+    output logic [7:0] r0_out,
     output logic [7:0] r3_out;
     output logic [7:0] rio_out;
 
@@ -14,8 +15,8 @@ module registers(
     logic [7:0] rfile [7:0];
 
     always_comb begin
-        // hardwire r3_out to rfile[3]
-        // hardwire rio_out to rfile[7]
+        // hardwire special output registers
+        r0_out = rfile[0];
         r3_out = rfile[3];
         rio_out = rfile[7];
 

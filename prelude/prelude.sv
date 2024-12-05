@@ -1,3 +1,22 @@
+/*
+
+possible future upgrades:
+
+> 10 bit instruction words to allow encode of full 8 bit immediate values.
+> a UART module to send and receive data from a host computer.
+> a RAM interface controlled by an existing register that has no other purpose.
+> shift and/or rotate instructions.
+> carry select adder for a performance boost over the standard ripple carry.
+
+a RAM interface is a bit more LEG than Overture in the game Turing Complete,
+but it would allow for more complex programs to be run on the system as we
+are limited to registers with the original overture design.
+
+i think a first go at the RAM interface would be flip flop based SRAM on my
+Tang Nano 20k but i think it would be interesting to try to implement a DRAM
+interface but that might be left for the LEG tribute chip.
+
+*/
 module prelude(
     input logic clk,
     input logic [7:0] rio_in,
@@ -49,10 +68,14 @@ module prelude(
         condition_result
     );
 
+    // calculate our incrementing program counter and send control signals
+    // to the functional units
     always_comb begin
         next_pc = pc + 1;
 
         // todo: need to do instruction decoding and signaling
+
+        // examine the contents of the instruction register
 
     end
 

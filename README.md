@@ -19,6 +19,7 @@ TODO:
 8 bit instruction words
 6 registers general purpose registers (r0-r5) 
 1 i/o register (r6)
+256 bytes of program ROM 
 
 ## Instruction Types
 00 - IMMEDIATE (load lower bits into r0)
@@ -59,4 +60,12 @@ Register Address|Register Name|Description
 
 ### 11 - BRANCH
 Condition bits|Condition|Notes
-
+-|-|-
+000|Never|No op, never take branch
+001|R3 ==  0
+010|R3 < 0
+011|R3 <= 0
+100|Always
+101|R3 != 0
+110|R3 >= 0
+111|R3 > 0

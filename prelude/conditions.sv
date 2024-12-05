@@ -8,22 +8,36 @@ module conditions(
 // -|-|-
 // 000|Never|No op, never take branch
 // 001|R3 ==  0
-// 010|R3 < 0
-// 011|R3 <= 0
+// 010|R3 < 0|signed
+// 011|R3 <= 0|signed
 // 100|Always
 // 101|R3 != 0
-// 110|R3 >= 0
-// 111|R3 > 0
+// 110|R3 >= 0|signed
+// 111|R3 > 0|signed
 
-    case (condition)
-        3'b000: result = 1'b0;
-        3'b001: result = (r3 == 8'b00000000);
-        3'b010: result = (r3 < 8'b00000000);
-        3'b011: result = (r3 <= 8'b00000000);
-        3'b100: result = 1'b1;
-        3'b101: result = (r3 != 8'b00000000);
-        3'b110: result = (r3 >= 8'b00000000);
-        3'b111: result = (r3 > 8'b00000000);
-    endcase
+    logic r_eq_zero, r_lt_zero, r_gt_zero;
+
+    always_comb begin
+
+        logic r_eq_zero = (r3 == 8'b00000000);
+
+        // check if top bit set for less than zero
+        logic r_lt_zero = r3[7];
+
+        // check if top bit not set and any other bit set for greater than zero
+        logic r_gt_zero = (r3[7] == 1'b0) & ~r_eq_zero;
+
+
+        case (condition)
+            3'b000: result = 1'b0;
+            3'b001: result = r_eq_zero;
+            3'b010: result = r_lt_zero;
+            3'b011: result = r_eq_zero | r_lt_zero;
+            3'b100: result = 1'b1;
+            3'b101: result = ~r_eq_zero;
+            3'b110: result = r_eq_zero | r_gt_zero;
+            3'b111: result = r_gt_zero;
+        endcase
+    end
 
 endmodule

@@ -14,7 +14,7 @@ TODO:
 * Multi cycle RISC-V RV32I CPU
 
 
-# Prelude (Overture)
+# Prelude (Overture from TC)
 8 bit single cycle processor
 8 bit instruction words
 6 general purpose registers (r0-r5)
@@ -72,3 +72,6 @@ Condition bits|Condition|Notes
 101|R3 != 0
 110|R3 >= 0
 111|R3 > 0
+
+## Prelude Assembler
+Prelude has an assembler that generates 3 output targets - binary file, TC code .txt file and a verilog LUT

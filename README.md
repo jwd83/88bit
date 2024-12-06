@@ -73,5 +73,7 @@ Condition bits|Condition|Notes
 110|R3 >= 0
 111|R3 > 0
 
-## Prelude Assembler
+## Prelude Assembler (PASM)
 Prelude has an assembler that generates 3 output targets - binary file, TC code .txt file and a verilog LUT
+
+I'd like to port my TC programs to be assembled by PASM and run them in the game to verify they work properly. 

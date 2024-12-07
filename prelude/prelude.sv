@@ -8,6 +8,8 @@ possible future upgrades:
 > shift and/or rotate instructions.
 > a load high and low nibble version of the load immediate instruction.
 > carry select adder for a performance boost over the standard ripple carry.
+> halt instruction to stop the processor. this could be accomplished with a
+  load address of next instruction and branch always as next instruction.
 
 a RAM interface is a bit more LEG than Overture in the game Turing Complete,
 but it would allow for more complex programs to be run on the system as we

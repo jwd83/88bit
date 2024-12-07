@@ -16,7 +16,7 @@ import os
 def main():
     # check if we have the correct number of arguments (1)
     if len(sys.argv) != 2:
-        print("Usage: python3 assembler.py <input_file>")
+        print("Usage: python3 pasm.py <input_file>")
         sys.exit(1)
 
     # check if the input file exists

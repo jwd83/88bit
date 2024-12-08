@@ -106,7 +106,7 @@ def parse_assembly_file(file):
         "R6": "110",
         "R7": "111",
         # register alias names
-        "RIO": "111",
+        "RIO": "110",
     }
 
     base_opcodes = {

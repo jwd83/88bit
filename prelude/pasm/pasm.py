@@ -139,6 +139,7 @@ def parse_assembly_file(file):
         "BLE": "11000011",  # branch if less than or equal to zero (signed)
         "BRA": "11000100",  # branch always
         "JUMP": "11000100",  # branch always (alias)
+        "JMP": "11000100",  # branch always (alias)
         "BNZ": "11000101",  # branch if not equal zero
         "BGE": "11000110",  # branch if greater than or equal to zero (signed)
         "BGT": "11000111",  # branch if greater than zero (signed)

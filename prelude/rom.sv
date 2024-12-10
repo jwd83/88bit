@@ -1,3 +1,5 @@
+// Generated with generate_rom.py
+
 module rom (
     input logic [7:0] address,
     output logic [7:0] data
@@ -23,5 +25,4 @@ module rom (
         default: data = 8'b00000000;
 
     endcase
-
 endmodule

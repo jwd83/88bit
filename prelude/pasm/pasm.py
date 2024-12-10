@@ -4,11 +4,16 @@
 
 # prelude assembly file format:
 # ------------------------------
+# every line of code is either a label, instruction or constant. it may optionally include a comment
 # comments begin with ;
-# instructions and labels are on their own lines
+# instructions, labels and constants are on their own lines
 # labels end with a colon
+# code is case INSENSITIVE
+# constants are in the format CONST <label> <value> (for example: CONST MYCONST 42)
+#
+# TODO: Helper function to detect line types
 
-# TODO: add constant support. CONST <label> <value> (CONST MYCONST 42)
+
 
 
 import sys
@@ -35,7 +40,7 @@ def main():
 
 def parse_assembly_file(file):
     rom = []
-    labels = {}
+    labels_and_constants = {}
 
     lines = file.readlines()
     cleaned_lines = []
@@ -80,19 +85,30 @@ def parse_assembly_file(file):
     address = 0
 
     for line in cleaned_lines:
+        # check for labels
         if line[-1] == ":":
             label = line[:-1]
             # check if the label is a duplicate
-            if label in labels:
+            if label in labels_and_constants:
                 print(
-                    f"ERROR: Duplicate label '{label}' at address {address} and {labels[label]}"
+                    f"ERROR: Duplicate label '{label}' at address {address} and {labels_and_constants[label]}"
                 )
                 sys.exit(2)
-            labels[label] = address
+            labels_and_constants[label] = address
             print(f"> LABEL: '{label}' at address {address}")
         else:
-            print(f"{address:03X}: {line}")
-            address += 1
+            # check for constants
+            if line.split(" ")[0] == "CONST":
+                tokens = line.split(" ")
+                if len(tokens) != 3:
+                    print(f"ERROR: CONST directive requires two tokens")
+                    sys.exit(2)
+                labels_and_constants[tokens[1]] = int(tokens[2])
+                print(f"> CONSTANT: '{tokens[1]}' at address {int(tokens[2])}")
+            else:
+                # otherwise increment the address
+                print(f"{address:03X}: {line}")
+                address += 1
 
     print("-" * 80)
     print("Generating instructions ...")
@@ -149,15 +165,20 @@ def parse_assembly_file(file):
 
     address = 0
     for line in cleaned_lines:
+        # split the line into tokens
+        tokens = line.split(" ")
+
         # if a line is a label ignore it for this pass
         if line[-1] == ":":
             print(f"> LABEL: '{label}' at address {address}")
 
             continue
-        else:
+        elif tokens[0] == "CONST":
+            # if a line is a constant ignore it for this pass
 
-            # split the line into tokens
-            tokens = line.split(" ")
+            print(f"> CONSTANT: '{tokens[1]}' with value {int(tokens[2])}")
+            continue
+        else:
 
             # determine opcode or exit if invalid
             if tokens[0] not in base_opcodes:
@@ -176,8 +197,8 @@ def parse_assembly_file(file):
                     sys.exit(4)
 
                 # check if the immediate value is a label
-                if tokens[1] in labels:
-                    immediate = labels[tokens[1]]
+                if tokens[1] in labels_and_constants:
+                    immediate = labels_and_constants[tokens[1]]
                 else:
                     try:
                         immediate = int(tokens[1])
@@ -249,9 +270,39 @@ def write_binary_file(rom, path):
 
 
 def write_verilog_file(rom, path):
-    pass
+    # check if file already exists, if so prompt to overwrite
+    # if not, write the binary file
+    if os.path.exists(path):
+        print(f"File '{path}' already exists. Overwrite? [y/n]")
+        response = input()
+        if response.lower() != "y":
+            print("Skipping binary file write")
+            return
+        else:
+            # delete the existing file
+            os.remove(path)
 
+    with open(path, "w") as f:
+        f.write("""
+module rom (
+    input logic [7:0] address,
+    output logic [7:0] data
+);
 
+    case (address)
+""")
+
+        address = 0
+        for instruction in rom:
+            f.write(f"        8'h{address:02X}: data <= 8'b{instruction};\n")
+
+            address += 1
+
+        f.write("""
+        default: data = 8'b00000000;
+    endcase
+endmodule
+""")
 def write_turing_complete_file(rom, path):
     # check if file already exists, if so prompt to overwrite
     # if not, write the binary file

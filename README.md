@@ -5,16 +5,17 @@ classic games roam free, untethered from the shackles of DRM.
 
 ...or at least my FPGA playground for now.
 
-
 TODO:
+
+Planned Architectures
 
 * Prelude - A single cycle 8 bit CPU based around overture from turing complete
 * Single cycle 8 bit CPU based around leg from turing complete
 * Multi cycle 8 bit CPU
 * Multi cycle RISC-V RV32I CPU
 
-
 # Prelude (Overture from TC)
+
 8 bit single cycle processor
 8 bit instruction words
 6 general purpose registers (r0-r5)
@@ -23,6 +24,7 @@ TODO:
 256 bytes of program ROM
 
 ## Instruction Types
+
 upper 2 bits|instruction type
 -|-
 00zzzzzz|IMMEDIATE (load lower bits into r0)
@@ -31,12 +33,15 @@ upper 2 bits|instruction type
 11zzzzzz|BRANCH
 
 ### 00 - IMMEDIATE
+
 Set R0 = lower 6 bit of instruction
 
 ### 01 - CALCULATE
+
 Lower 6 bits specify ALU operation. R3 = R1 (calc op) R2
 
 #### CALCUATE Ops
+
 ALU Operation Bits|Operation|Notes
 -|-|-
 000000|OR|R3 = R1 or R2
@@ -48,6 +53,7 @@ ALU Operation Bits|Operation|Notes
 000110|XOR|R3 = R1 ^ R2, Prelude specific
 
 ### 10 - COPY
+
 Copy instructions use the lower 6 bits to specify source and destination registers.
 
 Register Address|Register Name|Description
@@ -62,6 +68,7 @@ Register Address|Register Name|Description
 111|R7|Special I/O register
 
 ### 11 - BRANCH
+
 Condition bits|Condition|Notes
 -|-|-
 000|Never|No op, never take branch
@@ -74,6 +81,7 @@ Condition bits|Condition|Notes
 111|R3 > 0
 
 ## Prelude Assembler (PASM)
+
 Prelude has an assembler that generates 3 output targets - binary file, TC code .txt file and a verilog LUT
 
-I'd like to port my TC programs to be assembled by PASM and run them in the game to verify they work properly. 
+I'd like to port my TC programs to be assembled by PASM and run them in the game to verify they work properly.

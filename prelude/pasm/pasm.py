@@ -8,6 +8,8 @@
 # instructions and labels are on their own lines
 # labels end with a colon
 
+# TODO: add constant support. CONST <label> <value> (CONST MYCONST 42)
+
 
 import sys
 import os

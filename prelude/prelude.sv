@@ -22,6 +22,7 @@ interface but that might be left for the LEG tribute chip.
 */
 module prelude(
     input logic clk,
+    input logic reset,
     input logic [7:0] rio_in,
     output logic [7:0] rio_out,
 );
@@ -29,6 +30,9 @@ module prelude(
     logic [7:0] pc; // program counter
     logic [7:0] ir; // instruction register
     logic [7:0] next_pc; // next program counter
+
+    // alu result
+    logic [7:0] alu_out;
 
     // branching signals
     logic condition_result;
@@ -43,6 +47,8 @@ module prelude(
     logic [7:0] in;
     logic [7:0] out_a;
     logic [7:0] out_b;
+
+
 
 
     // instantiate modules
@@ -66,16 +72,19 @@ module prelude(
     );
 
     // module alu (
-    //     logic [5:0] alu_op,
-    //     logic [7:0] in_a,
-    //     logic [7:0] in_b,
-    //     logic [7:0] out
+    //     input logic [5:0] alu_op,
+    //     input logic [7:0] in_a,
+    //     input logic [7:0] in_b,
+    //     output logic [7:0] out
     // ) ;
+
+
 
     alu alu (
         ir[5:0],
-
-
+        out_a,
+        out_b,
+        alu_out
     );
 
 

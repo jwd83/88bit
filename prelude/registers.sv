@@ -12,24 +12,27 @@ module registers(
     output logic [7:0] rio_out;
 
 );
-    logic [7:0] rfile [7:0];
+    logic [7:0] register_file [7:0];
 
     always_comb begin
-        // hardwire special output registers
-        r0_out = rfile[0];
-        r3_out = rfile[3];
-        rio_out = rfile[7];
+        // hard wire special output registers
+        r0_out = register_file[0];
+        r3_out = register_file[3];
+        rio_out = register_file[7];
 
         // output the value of the selected registers
-        out_a = rfile[src_a];
-        out_b = rfile[src_b];
+        // todo when RIO is specified as a source,
+        // output the value of the `in` signal
+
+        out_a = register_file[src_a];
+        out_b = register_file[src_b];
     end
 
 
     always_ff @(posedge clk)
     begin
         if (write_enable)
-            rfile[dst] <= in;
+            register_file[dst] <= in;
     end
 
 endmodule

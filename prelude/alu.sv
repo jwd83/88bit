@@ -1,8 +1,8 @@
 module alu (
-    logic [5:0] alu_op,
-    logic [7:0] in_a,
-    logic [7:0] in_b,
-    logic [7:0] out
+    input logic [5:0] alu_op,
+    input logic [7:0] in_a,
+    input logic [7:0] in_b,
+    output logic [7:0] out
 ) ;
 
 

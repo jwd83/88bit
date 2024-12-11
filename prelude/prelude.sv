@@ -37,9 +37,9 @@ module prelude(
 
     // register file signals
     logic write_enable;
-    logic src_a;
-    logic src_b;
-    logic dst;
+    logic [2:0] src_a;
+    logic [2:0] src_b;
+    logic [2:0] dst;
     logic [7:0] in;
     logic [7:0] out_a;
     logic [7:0] out_b;
@@ -64,6 +64,21 @@ module prelude(
         .address(pc),
         .data(ir)
     );
+
+    // module alu (
+    //     logic [5:0] alu_op,
+    //     logic [7:0] in_a,
+    //     logic [7:0] in_b,
+    //     logic [7:0] out
+    // ) ;
+
+    alu alu (
+        ir[5:0],
+
+
+    );
+
+
 
     conditions condition_engine (
         r3_out,

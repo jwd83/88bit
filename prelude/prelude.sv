@@ -48,9 +48,6 @@ module prelude(
     logic [7:0] out_a;
     logic [7:0] out_b;
 
-
-
-
     // instantiate modules
     registers r_file(
         src_a,
@@ -71,23 +68,12 @@ module prelude(
         .data(ir)
     );
 
-    // module alu (
-    //     input logic [5:0] alu_op,
-    //     input logic [7:0] in_a,
-    //     input logic [7:0] in_b,
-    //     output logic [7:0] out
-    // ) ;
-
-
-
     alu alu (
-        ir[5:0],
-        out_a,
-        out_b,
-        alu_out
+        .alu_op(ir[5:0]),
+        .in_a(out_a),
+        .in_b(out_b),
+        .out(alu_out)
     );
-
-
 
     conditions condition_engine (
         r3_out,

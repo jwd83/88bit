@@ -1,2 +1,3 @@
-*.s.bin
-*.s.txt
+prelude/pasm/*.bin
+prelude/pasm/*.txt
+prelude/pasm/*.sv

@@ -36,22 +36,23 @@ SEARCH:                 ; label search
     ;
     ; # look for enemy. if no enemy found
     ; # (reg3 == 0) then jump to hold (jz)
-    COPY RIO reg3       ; in_to_reg3
-    LOAD hold           ; hold
-    jz
-; hold jz
-;
-; # we found an enemy so shoot!
-; shoot
-; reg0_to_out
-; search jmp
-;
-;
-; # idle then back to search
-; label hold
-; idle
-; reg0_to_out
-; search jmp
+    COPY RIO R3         ; in_to_reg3
+    LOAD HOLD           ; hold
+    JZ                  ; jz
+    ;
+    ; # we found an enemy so shoot!
+    LOAD shoot          ; shoot
+    COPY R0 RIO         ; reg0_to_out
+    LOAD SEARCH         ; search
+    JMP                 ; jmp
+    ;
+    ;
+    ; # idle then back to search
+HOLD:                   ; label hold
+    LOAD idle           ; idle
+    COPY R0 RIO         ; reg0_to_out
+    LOAD SEARCH         ; search
+    JMP                 ; jmp
 
 ; -----------------------------------------------------------------------------
 ; ORIGINAL SOURCE CODE BELOW:

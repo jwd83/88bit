@@ -82,6 +82,6 @@ Condition bits|Condition|Notes
 
 ## Prelude Assembler (PASM)
 
-Prelude has an assembler that generates 3 output targets - binary file, TC code .txt file and a verilog LUT
+I have written an assembler for Prelude that generates three output targets - a raw binary file, a Turing Complete compatible .txt file and a SystemVerilog Look-Up-Table (LUT)
 
-I'd like to port my TC programs to be assembled by PASM and run them in the game to verify they work properly.
+As of 12/12/2024 all turing complete Overture levels have had solutions assembled and tested in game.

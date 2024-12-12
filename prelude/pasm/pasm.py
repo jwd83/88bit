@@ -14,8 +14,6 @@
 # TODO: Helper function to detect line types
 
 
-
-
 import sys
 import os
 
@@ -152,15 +150,23 @@ def parse_assembly_file(file):
         # 111|R3 > 0|signed
         "BRN": "11000000",  # branch never (nop)
         "NOP": "11000000",  # branch never (nop alias)
+        # branch instructions
         "BZ": "11000001",  # branch if equal zero
         "BLT": "11000010",  # branch if less than zero (signed)
         "BLE": "11000011",  # branch if less than or equal to zero (signed)
         "BRA": "11000100",  # branch always
-        "JUMP": "11000100",  # branch always (alias)
-        "JMP": "11000100",  # branch always (alias)
         "BNZ": "11000101",  # branch if not equal zero
         "BGE": "11000110",  # branch if greater than or equal to zero (signed)
         "BGT": "11000111",  # branch if greater than zero (signed)
+        # jump aliases
+        "JZ": "11000001",  # branch if equal zero
+        "JLT": "11000010",  # branch if less than zero (signed)
+        "JLE": "11000011",  # branch if less than or equal to zero (signed)
+        "JUMP": "11000100",  # branch always (alias)
+        "JMP": "11000100",  # branch always (alias)
+        "JNZ": "11000101",  # branch if not equal zero
+        "JGE": "11000110",  # branch if greater than or equal to zero (signed)
+        "JGT": "11000111",  # branch if greater than zero (signed)
     }
 
     address = 0
@@ -283,14 +289,16 @@ def write_verilog_file(rom, path):
             os.remove(path)
 
     with open(path, "w") as f:
-        f.write("""
+        f.write(
+            """
 module rom (
     input logic [7:0] address,
     output logic [7:0] data
 );
 
     case (address)
-""")
+"""
+        )
 
         address = 0
         for instruction in rom:
@@ -298,11 +306,15 @@ module rom (
 
             address += 1
 
-        f.write("""
+        f.write(
+            """
         default: data = 8'b00000000;
     endcase
 endmodule
-""")
+"""
+        )
+
+
 def write_turing_complete_file(rom, path):
     # check if file already exists, if so prompt to overwrite
     # if not, write the binary file

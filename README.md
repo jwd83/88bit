@@ -1,3 +1,5 @@
+# [88bit](https://github.com/jwd83/88bit)
+
 Legend has it that if you can synthesize this core to run at exactly 88 MHz, it
 can resonate with the fabric of time and allow your Field Programmable Gate
 Array to tap into the echoes of gaming's past, conjuring a bygone era where

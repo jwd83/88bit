@@ -296,20 +296,22 @@ module rom (
     output logic [7:0] data
 );
 
-    case (address)
+    always_comb begin
+        case (address)
 """
         )
 
         address = 0
         for instruction in rom:
-            f.write(f"        8'h{address:02X}: data <= 8'b{instruction};\n")
+            f.write(" " * 12 + f"8'h{address:02X}: data = 8'b{instruction};\n")
 
             address += 1
 
         f.write(
             """
-        default: data = 8'b00000000;
-    endcase
+            default: data = 8'b00000000;
+        endcase
+    end
 endmodule
 """
         )

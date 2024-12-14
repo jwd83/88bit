@@ -102,7 +102,7 @@ def parse_assembly_file(file):
                     print(f"ERROR: CONST directive requires two tokens")
                     sys.exit(2)
                 labels_and_constants[tokens[1]] = int(tokens[2])
-                print(f"> CONSTANT: '{tokens[1]}' at address {int(tokens[2])}")
+                print(f"> CONSTANT: '{tokens[1]}' with value {int(tokens[2])}")
             else:
                 # otherwise increment the address
                 print(f"{address:03X}: {line}")

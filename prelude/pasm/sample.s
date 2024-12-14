@@ -1,7 +1,5 @@
-; simple program to add 5 and 3 and store the result in RIO
 ; full line comment
-; put some weird spacing on operands to make sure we parse it correctly
-const five 5
+const five 5 ; in-line comment
 const THREE 3
 
 start:

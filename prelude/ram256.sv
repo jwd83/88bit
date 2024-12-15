@@ -16,6 +16,7 @@ module ram256 (
     end
 
     always_comb begin
+        // read data
         dout = mem[addr];
     end
 

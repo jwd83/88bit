@@ -86,9 +86,36 @@ module prelude(
     always_comb begin
         next_pc = pc + 1;
 
-        // todo: need to do instruction decoding and signaling
+        casez (ir)
+            // immediate
+            8'b00zzzzzz: begin
+                dst = 3'b000;
+                in = {2'b00, ir[5:0]};
+                write_enable = 1'b1;
 
-        // examine the contents of the instruction register
+            end
+
+            // calculate
+            8'b01zzzzzz: begin
+                dst = 3'b011;
+                in = alu_out;
+                write_enable = 1'b1;
+            end
+
+            // copy
+            8'b10zzzzzz: begin
+                dst = ir[2:0];
+                src_a = ir[5:3];
+                in = out_a;
+                write_enable = 1'b1;
+            end
+
+            // branch
+            8'b11zzzzzz: begin
+
+                write_enable = 1'b0;
+            end
+        endcase
 
     end
 

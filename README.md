@@ -5,6 +5,10 @@ Array to tap into the echoes of gaming's past, conjuring a bygone era where
 classic games roam free, untethered from the shackles of DRM.
 
 ...or at least this is my FPGA playground for now.
+## Table of Contents
+* Current & Future [Architectures](#architectures)
+* [Prelude](#prelude)
+  * [PASM](#pasm) - the Prelude ASseMbler
 
 ## Architectures
 ### In Progress
@@ -16,7 +20,8 @@ classic games roam free, untethered from the shackles of DRM.
 * Delorean - Multi cycle 8 bit CPU
 * McFly - Multi cycle RISC-V RV32I CPU
 
-# Prelude (Overture from TC)
+# Prelude
+#### (Overture from TC)
 
 8 bit single cycle processor
 8 bit instruction words
@@ -82,7 +87,8 @@ Condition bits|Condition|Notes
 110|R3 >= 0
 111|R3 > 0
 
-## Prelude Assembler (PASM)
+## PASM
+### the Prelude ASseMbler
 
 I have written an assembler for Prelude that generates three output targets - a raw binary file, a Turing Complete compatible .txt file and a SystemVerilog Look-Up-Table (LUT)
 

@@ -1,6 +1,7 @@
 /*
 
 todo: optimize signal routing
+todo: connect reset line to register file to reset all registers to 0
 
 possible future upgrades:
 
@@ -124,7 +125,11 @@ module prelude(
     // advance the program counter, branching
     // when appropriate
     always_ff @(posedge clk) begin
-        if ((ir[7:6] == 2'b11) & condition_result) pc <= r0_out;
-        else pc <= next_pc;
+        // when reset is high, reset the program counter
+        if (reset) pc <= 8'b00000000;
+        else begin
+            if ((ir[7:6] == 2'b11) & condition_result) pc <= r0_out;
+            else pc <= next_pc;
+        end
     end
 endmodule

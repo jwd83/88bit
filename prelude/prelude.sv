@@ -1,5 +1,7 @@
 /*
 
+todo: optimize signal routing
+
 possible future upgrades:
 
 > 10 bit instruction words to allow encode of full 8 bit immediate values.
@@ -50,18 +52,18 @@ module prelude(
 
     // instantiate modules
     registers r_file(
-        src_a,
-        src_b,
-        dst,
-        write_enable,
-        in,
-        clk,
-        out_a,
-        out_b,
-        r0_out,
-        r3_out;
-        rio_out;
-    )
+        .src_a(src_a),
+        .src_b(src_b),
+        .dst(dst),
+        .write_enable(write_enable),
+        .in(in),
+        .clk(clk),
+        .out_a(out_a),
+        .out_b(out_b),
+        .r0_out(r0_out),
+        .r3_out(r3_out),
+        .rio_out(rio_out)
+    );
 
     rom instruction_rom (
         .address(pc),
@@ -76,9 +78,9 @@ module prelude(
     );
 
     conditions condition_engine (
-        r3_out,
-        ir[2:0],
-        condition_result
+        .r3(r3_out),
+        .condition(ir[2:0]),
+        .result(condition_result)
     );
 
     // calculate our incrementing program counter and send control signals
@@ -104,15 +106,15 @@ module prelude(
 
             // copy
             8'b10zzzzzz: begin
-                dst = ir[2:0];
                 src_a = ir[5:3];
+                dst = ir[2:0];
                 in = out_a;
                 write_enable = 1'b1;
             end
 
             // branch
             8'b11zzzzzz: begin
-
+                dst = 3'b000;
                 write_enable = 1'b0;
             end
         endcase

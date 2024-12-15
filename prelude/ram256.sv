@@ -1,4 +1,4 @@
-// a 256 byte RAM module with 8-bit data width
+// a 256 byte RAM module with 8-bit data width and addressing
 module ram256 (
     input  logic        clk,     // clock
     input  logic        we,      // write enable
@@ -10,8 +10,8 @@ module ram256 (
     logic [7:0] mem [255:0]; // 256-byte memory array
 
     always_ff @(posedge clk) begin
-        if (we) begin
-            mem[addr] <= din;
+        if (we) begin           // write enable
+            mem[addr] <= din;   // write data
         end
     end
 

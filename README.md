@@ -1,20 +1,20 @@
 # [88bit](https://github.com/jwd83/88bit)
 
-Legend has it that if you can synthesize this core to run at exactly 88 MHz, it
-can resonate with the fabric of time and allow your Field Programmable Gate
+Legend has it that if you can synthesize these cores to run at exactly 88 MHz, they will resonate with the fabric of time and allow your Field Programmable Gate
 Array to tap into the echoes of gaming's past, conjuring a bygone era where
 classic games roam free, untethered from the shackles of DRM.
 
-...or at least my FPGA playground for now.
+...or at least this is my FPGA playground for now.
 
-TODO:
-
-Planned Architectures
-
-* Prelude - A single cycle 8 bit CPU based around overture from turing complete
-* Single cycle 8 bit CPU based around leg from turing complete
-* Multi cycle 8 bit CPU
-* Multi cycle RISC-V RV32I CPU
+## Architectures
+### In Progress
+* Prelude - A single cycle 8 bit CPU inspired by the "Overture" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
+### Future
+* TBD - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
+* ShinyRock16 - A single cycle 16 bit CPU I designed myself in the game "Turing Complete"
+* ShinyRock32/TBD - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
+* Delorean - Multi cycle 8 bit CPU
+* McFly - Multi cycle RISC-V RV32I CPU
 
 # Prelude (Overture from TC)
 

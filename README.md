@@ -21,14 +21,13 @@ classic games roam free, untethered from the shackles of DRM.
 * McFly - Multi cycle RISC-V RV32I CPU
 
 # Prelude
-#### (Overture from TC)
-
-8 bit single cycle processor
-8 bit instruction words
-6 general purpose registers (r0-r5)
-1 i/o register (r6/rio)
-1 program counter (pc) register
-256 bytes of program ROM
+Inspired by Overture from the game Turing Complete
+* 8 bit single cycle processor
+* 8 bit instruction words
+* 6 general purpose registers (r0-r5)
+* 1 i/o register (r6/rio)
+* 1 program counter (pc) register
+* 256 bytes of program ROM
 
 ## Instruction Types
 

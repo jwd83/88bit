@@ -14,10 +14,10 @@ classic games roam free, untethered from the shackles of DRM.
 ### In Progress
 * Prelude - A single cycle 8 bit CPU inspired by the "Overture" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
 ### Future
-* TBD - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
-* ShinyRock16 - A single cycle 16 bit CPU I designed myself in the game "Turing Complete"
+* The BrownByte "BB" - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
+* ShinyRock16 - A completely bespoke single cycle 16 bit CPU supporting variable length instructions I designed in the game "Turing Complete"
 * ShinyRock32/TBD - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
-* Delorean - Multi cycle 8 bit CPU
+* BrownByte - Multi cycle 8 bit CPU
 * McFly - Multi cycle RISC-V RV32I CPU
 
 # Prelude

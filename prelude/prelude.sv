@@ -1,7 +1,32 @@
 /*
 
-todo: optimize signal routing
-todo: connect reset line to register file to reset all registers to 0
+
+
+        ##### ##                       ###                     ##
+     ######  /###                       ###                     ##
+    /#   /  /  ###                       ##                     ##
+   /    /  /    ###                      ##                     ##
+       /  /      ##                      ##                     ##
+      ## ##      ## ###  /###     /##    ##  ##   ####      ### ##    /##
+      ## ##      ##  ###/ #### / / ###   ##   ##    ###  / ######### / ###
+    /### ##      /    ##   ###/ /   ###  ##   ##     ###/ ##   #### /   ###
+   / ### ##     /     ##       ##    ### ##   ##      ##  ##    ## ##    ###
+      ## ######/      ##       ########  ##   ##      ##  ##    ## ########
+      ## ######       ##       #######   ##   ##      ##  ##    ## #######
+      ## ##           ##       ##        ##   ##      ##  ##    ## ##
+      ## ##           ##       ####    / ##   ##      /#  ##    /# ####    /
+      ## ##           ###       ######/  ### / ######/ ##  ####/    ######/
+ ##   ## ##            ###       #####    ##/   #####   ##  ###      #####
+###   #  /
+ ###    /           Prelude
+  #####/            ... A tribute to "Overture"
+    ###
+
+    * A simple 8 bit RISC CPU inspired by Overture from Turing Complete *
+
+TODO:
+* optimize signal routing
+* connect reset line to register file to reset all registers to 0
 
 possible future upgrades:
 
@@ -119,7 +144,6 @@ module prelude(
                 write_enable = 1'b0;
             end
         endcase
-
     end
 
     // advance the program counter, branching

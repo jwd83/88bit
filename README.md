@@ -14,13 +14,36 @@ classic games roam free, untethered from the shackles of DRM.
 ### In Progress
 * Prelude - A single cycle 8 bit CPU inspired by the "Overture" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
 ### Future
-* The BrownByte "BB" - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
-* ShinyRock16 - A completely bespoke single cycle 16 bit CPU supporting variable length instructions I designed in the game "Turing Complete"
-* ShinyRock32/TBD - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
-* BrownByte - Multi cycle 8 bit CPU
+* Great Scott! - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/), which was in turn inspired by the real world ARM architecture.
+* ShinyRock16 - A completely bespoke 16 bit CPU supporting variable length instructions that I originally designed in the game "Turing Complete"
+* Marty - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
+* TBD - Multi cycle 8 bit CPU
 * McFly - Multi cycle RISC-V RV32I CPU
+* Seymour - SIMD vector unit
 
 # Prelude
+```
+        ##### ##                       ###                     ##
+     ######  /###                       ###                     ##
+    /#   /  /  ###                       ##                     ##
+   /    /  /    ###                      ##                     ##
+       /  /      ##                      ##                     ##
+      ## ##      ## ###  /###     /##    ##  ##   ####      ### ##    /##
+      ## ##      ##  ###/ #### / / ###   ##   ##    ###  / ######### / ###
+    /### ##      /    ##   ###/ /   ###  ##   ##     ###/ ##   #### /   ###
+   / ### ##     /     ##       ##    ### ##   ##      ##  ##    ## ##    ###
+      ## ######/      ##       ########  ##   ##      ##  ##    ## ########
+      ## ######       ##       #######   ##   ##      ##  ##    ## #######
+      ## ##           ##       ##        ##   ##      ##  ##    ## ##
+      ## ##           ##       ####    / ##   ##      /#  ##    /# ####    /
+      ## ##           ###       ######/  ### / ######/ ##  ####/    ######/
+ ##   ## ##            ###       #####    ##/   #####   ##  ###      #####
+###   #  /
+ ###    /           Prelude
+  #####/            ... A tribute to "Overture"
+    ###
+```
+
 Inspired by Overture from the game Turing Complete
 * 8 bit single cycle processor
 * 8 bit instruction words

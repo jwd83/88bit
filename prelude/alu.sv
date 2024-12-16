@@ -13,18 +13,21 @@ module alu (
 // 000100|ADD|out = in_a + in_b
 // 000101|SUB|out = in_a - in_b
 // 000110|XOR|out = in_a ^ in_b, Prelude specific
-// 000111|SHL|out = in_a << in_b, Prelude specific (future unimplemented)
+// 000111|SHL|out = in_a << in_b, Prelude specific
+    always_comb begin
+        casez (alu_op)
+            6'b000000: out = in_a | in_b;
+            6'b000001: out = ~(in_a & in_b);
+            6'b000010: out = ~(in_a | in_b);
+            6'b000011: out = in_a & in_b;
+            6'b000100: out = in_a + in_b;
+            6'b000101: out = in_a - in_b;
+            6'b000110: out = in_a ^ in_b;
+            6'b000111: out = in_a << in_b;
+            default: out = 8'b0;
+        endcase
+    end
 
-    casez (alu_op)
-        6'b000000: out = in_a | in_b;
-        6'b000001: out = ~(in_a & in_b);
-        6'b000010: out = ~(in_a | in_b);
-        6'b000011: out = in_a & in_b;
-        6'b000100: out = in_a + in_b;
-        6'b000101: out = in_a - in_b;
-        6'b000110: out = in_a ^ in_b;
-        default: out = 8'b0;
-    endcase
 
 
 endmodule

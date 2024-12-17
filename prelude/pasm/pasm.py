@@ -30,7 +30,8 @@ def main():
             rom = parse_assembly_file(f)
             write_binary_file(rom, f"{sys.argv[1]}.bin")
             write_verilog_file(rom, f"{sys.argv[1]}.sv")
-            write_turing_complete_file(rom, f"{sys.argv[1]}.txt")
+            write_turing_complete_file(rom, f"{sys.argv[1]}.tc.txt")
+            write_program_rom(rom, f"{sys.argv[1]}.rom.txt")
     except FileNotFoundError:
         print(f"File '{sys.argv[1]}' not found")
         sys.exit(1)
@@ -262,7 +263,7 @@ def write_binary_file(rom, path):
         print(f"File '{path}' already exists. Overwrite? [y/n]")
         response = input()
         if response.lower() != "y":
-            print("Skipping binary file write")
+            print("Skipping...")
             return
         else:
             # delete the existing file
@@ -282,7 +283,7 @@ def write_verilog_file(rom, path):
         print(f"File '{path}' already exists. Overwrite? [y/n]")
         response = input()
         if response.lower() != "y":
-            print("Skipping binary file write")
+            print("Skipping...")
             return
         else:
             # delete the existing file
@@ -317,6 +318,25 @@ endmodule
         )
 
 
+def write_program_rom(rom, path):
+    # check if file already exists, if so prompt to overwrite
+    # if not, write the binary file
+    if os.path.exists(path):
+        print(f"File '{path}' already exists. Overwrite? [y/n]")
+        response = input()
+        if response.lower() != "y":
+            print("Skipping...")
+            return
+        else:
+            # delete the existing file
+            os.remove(path)
+
+    with open(path, "w") as f:
+        f.write("\n".join(rom))
+
+    print(f"Program ROM file written to '{path}'")
+
+
 def write_turing_complete_file(rom, path):
     # check if file already exists, if so prompt to overwrite
     # if not, write the binary file
@@ -324,7 +344,7 @@ def write_turing_complete_file(rom, path):
         print(f"File '{path}' already exists. Overwrite? [y/n]")
         response = input()
         if response.lower() != "y":
-            print("Skipping binary file write")
+            print("Skipping...")
             return
         else:
             # delete the existing file

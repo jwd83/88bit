@@ -1,28 +1,32 @@
-// Generated with generate_rom.py
 
 module rom (
     input logic [7:0] address,
     output logic [7:0] data
 );
+    // a solution to The Maze from Turing Complete
 
-    case (address)
-        8'b00000000: data = 8'b00000101; // load R0 with 5
-        8'b00000001: data = 8'b00000000;
-        8'b00000010: data = 8'b00000000;
-        8'b00000011: data = 8'b00000000;
-        8'b00000100: data = 8'b00000000;
-        8'b00000101: data = 8'b00000000;
-        8'b00000110: data = 8'b00000000;
-        8'b00000111: data = 8'b00000000;
-        8'b00001000: data = 8'b00000000;
-        8'b00001001: data = 8'b00000000;
-        8'b00001010: data = 8'b00000000;
-        8'b00001011: data = 8'b00000000;
-        8'b00001100: data = 8'b00000000;
-        8'b00001101: data = 8'b00000000;
-        8'b00001110: data = 8'b00000000;
-        8'b00001111: data = 8'b00000000;
-        default: data = 8'b00000000;
+    always_comb begin
+        case (address)
+            8'h00: data = 8'b00000001;
+            8'h01: data = 8'b10000010;
+            8'h02: data = 8'b00000000;
+            8'h03: data = 8'b10000110;
+            8'h04: data = 8'b00000100;
+            8'h05: data = 8'b10000110;
+            8'h06: data = 8'b10110001;
+            8'h07: data = 8'b01000101;
+            8'h08: data = 8'b00001110;
+            8'h09: data = 8'b11000001;
+            8'h0A: data = 8'b00000001;
+            8'h0B: data = 8'b10000110;
+            8'h0C: data = 8'b00000010;
+            8'h0D: data = 8'b11000100;
+            8'h0E: data = 8'b00000010;
+            8'h0F: data = 8'b10000110;
+            8'h10: data = 8'b00000100;
+            8'h11: data = 8'b11000100;
 
-    endcase
+            default: data = 8'b00000000;
+        endcase
+    end
 endmodule

@@ -27,6 +27,16 @@ logic r_gt_zero = (r3[7] == 1'b0) & ~(~|r3);
 
 */
 
+
+`define BRN      3'b000
+`define BZ       3'b001
+`define BLT      3'b010
+`define BLE      3'b011
+`define BRA      3'b100
+`define BNZ      3'b101
+`define BGE      3'b110
+`define BGT      3'b111
+
 module conditions(
     input logic [7:0] r3,
     input logic [2:0] condition,
@@ -34,14 +44,14 @@ module conditions(
 );
     always_comb begin
         case (condition)
-            3'b000: result = 1'b0;
-            3'b001: result = (~|r3);
-            3'b010: result = (r3[7]);
-            3'b011: result = (~|r3) | (r3[7]);
-            3'b100: result = 1'b1;
-            3'b101: result = ~(~|r3);
-            3'b110: result = (~|r3) | ((r3[7] == 1'b0) & ~(~|r3));
-            3'b111: result = ((r3[7] == 1'b0) & ~(~|r3));
+            `BRN: result = 1'b0;
+            `BZ:  result = (~|r3);
+            `BLT: result = (r3[7]);
+            `BLE: result = (~|r3) | (r3[7]);
+            `BRA: result = 1'b1;
+            `BNZ: result = ~(~|r3);
+            `BGE: result = (~|r3) | ((r3[7] == 1'b0) & ~(~|r3));
+            `BGT: result = ((r3[7] == 1'b0) & ~(~|r3));
         endcase
     end
 

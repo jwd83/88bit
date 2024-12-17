@@ -10,6 +10,6 @@ add_more:
     ADD             ; R3 = R1 + R2
     COPY R3 RIO     ; RIO = R3
     COPY R3 R1      ; R1 = R3
-add_more: ; !!!!! a duplicate label should break the assembly  !!!!!!
+add_more:           ; !!!!! a duplicate label should break the assembly  !!!!!!
     LOAD add_more   ; load add_more into R0
     BRA             ; branch always

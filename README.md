@@ -236,3 +236,6 @@ For more information, visit the [GitHub repository](https://github.com/jwd83/88b
 - `JNZ`: Jump if R3 != 0
 - `JGE`: Jump if R3 >= 0 (signed)
 - `JGT`: Jump if R3 > 0 (signed)
+
+# Credits
+patorjk for the ASCII art

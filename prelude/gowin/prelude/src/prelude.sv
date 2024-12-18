@@ -77,10 +77,9 @@ module prelude(
         .write_enable(write_enable),
         .in(in),
         .clk(clk),
+        .reset(reset),
         .out_a(out_a),
         .out_b(out_b),
-        .r0_out(r0_out),
-        .r3_out(r3_out),
         .rio_out(rio_out)
     );
 
@@ -97,7 +96,7 @@ module prelude(
     );
 
     conditions conditions (
-        .r3(r3_out),
+        .value(out_a),
         .condition(ir[2:0]),
         .result(condition_result)
     );
@@ -138,7 +137,7 @@ module prelude(
 
             // branch
             8'b11zzzzzz: begin
-                src_a = 3'b000;
+                src_a = 3'b011;
                 src_b = 3'b000;
                 dst = 3'b000;
                 in = 8'b00000000;
@@ -153,7 +152,7 @@ module prelude(
         // when reset is high, reset the program counter
         if (reset) pc <= 8'b00000000;
         else begin
-            if ((ir[7:6] == 2'b11) & condition_result) pc <= r0_out;
+            if ((ir[7:6] == 2'b11) & condition_result) pc <= out_b;
             else pc <= next_pc;
         end
     end
@@ -166,28 +165,28 @@ Conditional branching unit for Prelude
 
 Condition bits for branch instructions are as follows:
 
----------------|-----------|------------------------------
-Condition      |           |
-bits           | Condition | Notes
----------------|-----------|------------------------------
-           000 | Never     | No op, never take branch
-           001 | R3 ==  0  |
-           010 | R3 < 0    | signed
-           011 | R3 <= 0   | signed
-           100 | Always    |
-           101 | R3 != 0   |
-           110 | R3 >= 0   | signed
-           111 | R3 > 0    | signed
----------------|-----------|------------------------------
+---------------|--------------|------------------------------
+Condition      |              |
+bits           | Condition    | Notes
+---------------|--------------|------------------------------
+           000 | Never        | No op, never take branch
+           001 | Value ==  0  |
+           010 | Value < 0    | signed
+           011 | Value <= 0   | signed
+           100 | Always       |
+           101 | Value != 0   |
+           110 | Value >= 0   | signed
+           111 | Value > 0    | signed
+---------------|--------------|------------------------------
 
-...or all of r3 bits together then invert to get if all bits are zero
-logic r_eq_zero = ~|r3;
+...or all of value bits together then invert to get if all bits are zero
+logic r_eq_zero = ~|value;
 
 ...check if top bit set for less than zero
-logic r_lt_zero = r3[7];
+logic r_lt_zero = value[7];
 
 ...check if top bit not set and any other bit set for greater than zero
-logic r_gt_zero = (r3[7] == 1'b0) & ~(~|r3);
+logic r_gt_zero = (value[7] == 1'b0) & ~(~|value);
 
 */
 
@@ -202,20 +201,20 @@ logic r_gt_zero = (r3[7] == 1'b0) & ~(~|r3);
 `define BGT      3'b111
 
 module conditions(
-    input logic [7:0] r3,
+    input logic [7:0] value,
     input logic [2:0] condition,
     output logic result
 );
     always_comb begin
         case (condition)
             `BRN: result = 1'b0;
-            `BZ:  result = (~|r3);
-            `BLT: result = (r3[7]);
-            `BLE: result = (~|r3) | (r3[7]);
+            `BZ:  result = (~|value);
+            `BLT: result = (value[7]);
+            `BLE: result = (~|value) | (value[7]);
             `BRA: result = 1'b1;
-            `BNZ: result = ~(~|r3);
-            `BGE: result = (~|r3) | ((r3[7] == 1'b0) & ~(~|r3));
-            `BGT: result = ((r3[7] == 1'b0) & ~(~|r3));
+            `BNZ: result = ~(~|value);
+            `BGE: result = (~|value) | ((value[7] == 1'b0) & ~(~|value));
+            `BGT: result = ((value[7] == 1'b0) & ~(~|value));
         endcase
     end
 
@@ -286,18 +285,15 @@ module registers(
     input logic write_enable,
     input logic [7:0] in,
     input logic clk,
+    input logic reset,
     output logic [7:0] out_a,
     output logic [7:0] out_b,
-    output logic [7:0] r0_out,
-    output logic [7:0] r3_out,
     output logic [7:0] rio_out
 );
     logic [7:0] register_file [7:0];
 
     always_comb begin
         // hard wire special output registers
-        r0_out = register_file[0];
-        r3_out = register_file[3];
         rio_out = register_file[7];
 
 
@@ -319,8 +315,20 @@ module registers(
     end
 
     always_ff @(posedge clk) begin
-        if (write_enable)
-            register_file[dst] <= in;
+        if (reset) begin
+            register_file[0] <= 8'b00000000;
+            register_file[1] <= 8'b00000000;
+            register_file[2] <= 8'b00000000;
+            register_file[3] <= 8'b00000000;
+            register_file[4] <= 8'b00000000;
+            register_file[5] <= 8'b00000000;
+            register_file[6] <= 8'b00000000;
+            register_file[7] <= 8'b00000000;
+
+        end else begin
+            if (write_enable)
+                register_file[dst] <= in;
+        end
     end
 
 endmodule

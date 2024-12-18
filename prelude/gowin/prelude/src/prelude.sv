@@ -69,6 +69,15 @@ module prelude(
     logic [7:0] out_a;
     logic [7:0] out_b;
 
+    // instruction decoder
+    decoder decoder(
+        .ir(ir),
+        .src_a(src_a),
+        .src_b(src_b),
+        .dst(dst),
+        .write_enable(write_enable)
+    );
+
     // instantiate modules
     registers registers(
         .src_a(src_a),
@@ -107,42 +116,10 @@ module prelude(
         next_pc = pc + 1;
 
         casez (ir)
-            // immediate
-            8'b00zzzzzz: begin
-                src_a = 3'b000;
-                src_b = 3'b000;
-                dst = 3'b000;
-                in = {2'b00, ir[5:0]};
-                write_enable = 1'b1;
-
-            end
-
-            // calculate
-            8'b01zzzzzz: begin
-                src_a = 3'b001;
-                src_b = 3'b010;
-                dst = 3'b011;
-                in = alu_out;
-                write_enable = 1'b1;
-            end
-
-            // copy
-            8'b10zzzzzz: begin
-                src_a = ir[5:3];
-                src_b = 3'b000;
-                dst = ir[2:0];
-                in = out_a;
-                write_enable = 1'b1;
-            end
-
-            // branch
-            8'b11zzzzzz: begin
-                src_a = 3'b011;
-                src_b = 3'b000;
-                dst = 3'b000;
-                in = 8'b00000000;
-                write_enable = 1'b0;
-            end
+            8'b00zzzzzz: in = {2'b00, ir[5:0]};     // immediate
+            8'b01zzzzzz: in = alu_out;              // calculate
+            8'b10zzzzzz: in = out_a;                // copy
+            8'b11zzzzzz: in = 8'b00000000;          // branch
         endcase
     end
 
@@ -158,6 +135,56 @@ module prelude(
     end
 endmodule
 
+/*
+
+The instruction decoder for Prelude
+
+*/
+module decoder(
+    input logic [7:0] ir,
+    output logic [2:0] src_a,
+    output logic [2:0] src_b,
+    output logic [2:0] dst,
+    output logic write_enable
+);
+
+    always_comb begin
+        casez (ir)
+            // immediate
+            8'b00zzzzzz: begin
+                src_a = 3'b000;
+                src_b = 3'b000;
+                dst = 3'b000;
+                write_enable = 1'b1;
+            end
+
+            // calculate
+            8'b01zzzzzz: begin
+                src_a = 3'b001;
+                src_b = 3'b010;
+                dst = 3'b011;
+                write_enable = 1'b1;
+            end
+
+            // copy
+            8'b10zzzzzz: begin
+                src_a = ir[5:3];
+                src_b = 3'b000;
+                dst = ir[2:0];
+                write_enable = 1'b1;
+            end
+
+            // branch
+            8'b11zzzzzz: begin
+                src_a = 3'b011;
+                src_b = 3'b000;
+                dst = 3'b000;
+                write_enable = 1'b0;
+            end
+        endcase
+    end
+
+endmodule
 
 /*
 

@@ -312,11 +312,10 @@ module registers(
     end
 endmodule
 
-
-
 /*
 
 Read only memory uses rom.txt to generate the program ROM for Prelude
+
 */
 
 module rom (

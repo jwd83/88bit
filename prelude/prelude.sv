@@ -1,7 +1,5 @@
 /*
 
-
-
         ##### ##                       ###                     ##
      ######  /###                       ###                     ##
     /#   /  /  ###                       ##                     ##
@@ -23,29 +21,6 @@
     ###
 
     * A simple 8 bit RISC CPU inspired by Overture from Turing Complete *
-
-TODO:
-* optimize signal routing
-* connect reset line to register file to reset all registers to 0
-
-possible future upgrades:
-
-> 10 bit instruction words to allow encode of full 8 bit immediate values.
-> a UART module to send and receive data from a host computer.
-> a RAM interface controlled by an existing register that has no other purpose.
-> shift and/or rotate instructions.
-> a load high and low nibble version of the load immediate instruction.
-> carry select adder for a performance boost over the standard ripple carry.
-> halt instruction to stop the processor. this could be accomplished with a
-  load address of next instruction and branch always as next instruction.
-
-a RAM interface is a bit more LEG than Overture in the game Turing Complete,
-but it would allow for more complex programs to be run on the system as we
-are limited to registers with the original overture design.
-
-i think a first go at the RAM interface would be flip flop based SRAM on my
-Tang Nano 20k but i think it would be interesting to try to implement a DRAM
-interface but that might be left for the LEG tribute chip.
 
 */
 module prelude(
@@ -155,5 +130,277 @@ module prelude(
             if ((ir[7:6] == 2'b11) & condition_result) pc <= r0_out;
             else pc <= next_pc;
         end
+    end
+endmodule
+
+
+/*
+
+ $$$$$$\                            $$\ $$\   $$\     $$\                               $$\
+$$  __$$\                           $$ |\__|  $$ |    \__|                              $$ |
+$$ /  \__| $$$$$$\  $$$$$$$\   $$$$$$$ |$$\ $$$$$$\   $$\  $$$$$$\  $$$$$$$\   $$$$$$\  $$ |
+$$ |      $$  __$$\ $$  __$$\ $$  __$$ |$$ |\_$$  _|  $$ |$$  __$$\ $$  __$$\  \____$$\ $$ |
+$$ |      $$ /  $$ |$$ |  $$ |$$ /  $$ |$$ |  $$ |    $$ |$$ /  $$ |$$ |  $$ | $$$$$$$ |$$ |
+$$ |  $$\ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$\ $$ |$$ |  $$ |$$ |  $$ |$$  __$$ |$$ |
+\$$$$$$  |\$$$$$$  |$$ |  $$ |\$$$$$$$ |$$ |  \$$$$  |$$ |\$$$$$$  |$$ |  $$ |\$$$$$$$ |$$ |
+ \______/  \______/ \__|  \__| \_______|\__|   \____/ \__| \______/ \__|  \__| \_______|\__|
+
+
+
+$$$$$$$\                                         $$\       $$\
+$$  __$$\                                        $$ |      \__|
+$$ |  $$ | $$$$$$\  $$$$$$\  $$$$$$$\   $$$$$$$\ $$$$$$$\  $$\ $$$$$$$\   $$$$$$\
+$$$$$$$\ |$$  __$$\ \____$$\ $$  __$$\ $$  _____|$$  __$$\ $$ |$$  __$$\ $$  __$$\
+$$  __$$\ $$ |  \__|$$$$$$$ |$$ |  $$ |$$ /      $$ |  $$ |$$ |$$ |  $$ |$$ /  $$ |
+$$ |  $$ |$$ |     $$  __$$ |$$ |  $$ |$$ |      $$ |  $$ |$$ |$$ |  $$ |$$ |  $$ |
+$$$$$$$  |$$ |     \$$$$$$$ |$$ |  $$ |\$$$$$$$\ $$ |  $$ |$$ |$$ |  $$ |\$$$$$$$ |
+\_______/ \__|      \_______|\__|  \__| \_______|\__|  \__|\__|\__|  \__| \____$$ |
+                                                                         $$\   $$ |
+                                                                         \$$$$$$  |
+                                                                          \______/
+Condition bits for branch instructions are as follows:
+
+---------------|-----------|------------------------------
+Condition      |           |
+bits           | Condition | Notes
+---------------|-----------|------------------------------
+           000 | Never     | No op, never take branch
+           001 | R3 ==  0  |
+           010 | R3 < 0    | signed
+           011 | R3 <= 0   | signed
+           100 | Always    |
+           101 | R3 != 0   |
+           110 | R3 >= 0   | signed
+           111 | R3 > 0    | signed
+---------------|-----------|------------------------------
+
+...or all of r3 bits together then invert to get if all bits are zero
+logic r_eq_zero = ~|r3;
+
+...check if top bit set for less than zero
+logic r_lt_zero = r3[7];
+
+...check if top bit not set and any other bit set for greater than zero
+logic r_gt_zero = (r3[7] == 1'b0) & ~(~|r3);
+
+*/
+
+
+`define BRN      3'b000
+`define BZ       3'b001
+`define BLT      3'b010
+`define BLE      3'b011
+`define BRA      3'b100
+`define BNZ      3'b101
+`define BGE      3'b110
+`define BGT      3'b111
+
+module conditions(
+    input logic [7:0] r3,
+    input logic [2:0] condition,
+    output logic result
+);
+    always_comb begin
+        case (condition)
+            `BRN: result = 1'b0;
+            `BZ:  result = (~|r3);
+            `BLT: result = (r3[7]);
+            `BLE: result = (~|r3) | (r3[7]);
+            `BRA: result = 1'b1;
+            `BNZ: result = ~(~|r3);
+            `BGE: result = (~|r3) | ((r3[7] == 1'b0) & ~(~|r3));
+            `BGT: result = ((r3[7] == 1'b0) & ~(~|r3));
+        endcase
+    end
+
+endmodule
+
+/*
+ $$$$$$\  $$\      $$\   $$\
+$$  __$$\ $$ |     $$ |  $$ |
+$$ /  $$ |$$ |     $$ |  $$ |
+$$$$$$$$ |$$ |     $$ |  $$ |
+$$  __$$ |$$ |     $$ |  $$ |
+$$ |  $$ |$$ |     $$ |  $$ |
+$$ |  $$ |$$$$$$$$\\$$$$$$  |
+\__|  \__|\________|\______/
+
+
+The Arithmetic Logic Unit (ALU) for Prelude
+
+ALU operations for Prelude are defined as follows:
+
+----------|-----------|----------------------------------------
+  ALU op  |           |
+  bits    | Operation | Description
+----------|-----------|----------------------------------------
+   000000 | OR        | out = in_a or in_b
+   000001 | NAND      | out = ~(in_a and in_b)
+   000010 | NOR       | out = ~(in_a or in_b)
+   000011 | AND       | out = in_a and in_b
+   000100 | ADD       | out = in_a + in_b
+   000101 | SUB       | out = in_a - in_b
+   000110 | XOR       | out = in_a ^ in_b, Prelude specific
+   000111 | SHL       | out = in_a << in_b, Prelude specific
+----------|-----------|----------------------------------------
+
+*/
+
+`define ALU_OR      6'b000000
+`define ALU_NAND    6'b000001
+`define ALU_NOR     6'b000010
+`define ALU_AND     6'b000011
+`define ALU_ADD     6'b000100
+`define ALU_SUB     6'b000101
+`define ALU_XOR     6'b000110
+`define ALU_SHL     6'b000111
+
+module alu (
+    input logic [5:0] alu_op,
+    input logic [7:0] in_a,
+    input logic [7:0] in_b,
+    output logic [7:0] out
+);
+    always_comb begin
+        casez (alu_op)
+            `ALU_OR:     out = in_a | in_b;
+            `ALU_NAND:   out = ~(in_a & in_b);
+            `ALU_NOR:    out = ~(in_a | in_b);
+            `ALU_AND:    out = in_a & in_b;
+            `ALU_ADD:    out = in_a + in_b;
+            `ALU_SUB:    out = in_a - in_b;
+            `ALU_XOR:    out = in_a ^ in_b;
+            `ALU_SHL:    out = in_a << in_b;
+            default: out = 8'b0;
+        endcase
+    end
+endmodule
+
+/*
+
+$$$$$$$\                      $$\             $$\
+$$  __$$\                     \__|            $$ |
+$$ |  $$ | $$$$$$\   $$$$$$\  $$\  $$$$$$$\ $$$$$$\    $$$$$$\   $$$$$$\
+$$$$$$$  |$$  __$$\ $$  __$$\ $$ |$$  _____|\_$$  _|  $$  __$$\ $$  __$$\
+$$  __$$< $$$$$$$$ |$$ /  $$ |$$ |\$$$$$$\    $$ |    $$$$$$$$ |$$ |  \__|
+$$ |  $$ |$$   ____|$$ |  $$ |$$ | \____$$\   $$ |$$\ $$   ____|$$ |
+$$ |  $$ |\$$$$$$$\ \$$$$$$$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$$\ $$ |
+\__|  \__| \_______| \____$$ |\__|\_______/    \____/  \_______|\__|
+                    $$\   $$ |
+                    \$$$$$$  |
+                     \______/
+$$$$$$$$\ $$\ $$\
+$$  _____|\__|$$ |
+$$ |      $$\ $$ | $$$$$$\
+$$$$$\    $$ |$$ |$$  __$$\
+$$  __|   $$ |$$ |$$$$$$$$ |
+$$ |      $$ |$$ |$$   ____|
+$$ |      $$ |$$ |\$$$$$$$\
+\__|      \__|\__| \_______|
+
+
+Prelude's register file
+
+*/
+
+module registers(
+    input logic [2:0] src_a,
+    input logic [2:0] src_b,
+    input logic [2:0] dst,
+    input logic write_enable,
+    input logic [7:0] in,
+    input logic clk,
+    output logic [7:0] out_a,
+    output logic [7:0] out_b,
+    output logic [7:0] r0_out,
+    output logic [7:0] r3_out,
+    output logic [7:0] rio_out
+);
+    logic [7:0] register_file [7:0];
+
+    always_comb begin
+        // hard wire special output registers
+        r0_out = register_file[0];
+        r3_out = register_file[3];
+        rio_out = register_file[7];
+
+
+        if (src_a == 3'b111) begin
+            // when RIO is specified as a source, output the value of the `in` signal
+            out_a = in;
+        end else begin
+            // output the value of the selected registers
+            out_a = register_file[src_a];
+        end
+
+        if (src_b == 3'b111) begin
+            // when RIO is specified as a source, output the value of the `in` signal
+            out_b = in;
+        end else begin
+            // output the value of the selected registers
+            out_b = register_file[src_b];
+        end
+    end
+
+    always_ff @(posedge clk) begin
+        if (write_enable)
+            register_file[dst] <= in;
+    end
+
+endmodule
+
+/*
+
+$$$$$$$\                            $$\
+$$  __$$\                           $$ |
+$$ |  $$ | $$$$$$\   $$$$$$\   $$$$$$$ |
+$$$$$$$  |$$  __$$\  \____$$\ $$  __$$ |
+$$  __$$< $$$$$$$$ | $$$$$$$ |$$ /  $$ |
+$$ |  $$ |$$   ____|$$  __$$ |$$ |  $$ |
+$$ |  $$ |\$$$$$$$\ \$$$$$$$ |\$$$$$$$ |
+\__|  \__| \_______| \_______| \_______|
+
+
+
+ $$$$$$\            $$\
+$$  __$$\           $$ |
+$$ /  $$ |$$$$$$$\  $$ |$$\   $$\
+$$ |  $$ |$$  __$$\ $$ |$$ |  $$ |
+$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |
+$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |
+ $$$$$$  |$$ |  $$ |$$ |\$$$$$$$ |
+ \______/ \__|  \__|\__| \____$$ |
+                        $$\   $$ |
+                        \$$$$$$  |
+                         \______/
+$$\      $$\
+$$$\    $$$ |
+$$$$\  $$$$ | $$$$$$\  $$$$$$\$$$$\   $$$$$$\   $$$$$$\  $$\   $$\
+$$\$$\$$ $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$  __$$\ $$ |  $$ |
+$$ \$$$  $$ |$$$$$$$$ |$$ / $$ / $$ |$$ /  $$ |$$ |  \__|$$ |  $$ |
+$$ |\$  /$$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$ |      $$ |  $$ |
+$$ | \_/ $$ |\$$$$$$$\ $$ | $$ | $$ |\$$$$$$  |$$ |      \$$$$$$$ |
+\__|     \__| \_______|\__| \__| \__| \______/ \__|       \____$$ |
+                                                         $$\   $$ |
+                                                         \$$$$$$  |
+                                                          \______/
+
+Read only memory uses rom.txt to generate the program ROM for Prelude
+
+*/
+
+module rom (
+    input logic [7:0] address,
+    output logic [7:0] data
+);
+    logic [7:0] rom_contents [0:255];
+
+    // load our program ROM from rom.txt
+    initial begin
+        $readmemb("rom.txt", rom_contents);
+    end
+
+    always_comb begin
+        data = rom_contents[address];
     end
 endmodule

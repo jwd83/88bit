@@ -90,7 +90,6 @@ Running technical mapping ...
 [75%] Tech-Mapping Phase 2 completed
 [80%] Tech-Mapping Phase 3 completed
 [90%] Tech-Mapping Phase 4 completed
-WARN  (NL0002) : The module "alu" instantiated to "alu" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":70)
 WARN  (NL0002) : The module "conditions" instantiated to "conditions" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":76)
 WARN  (NL0002) : The module "rom" instantiated to "rom" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":63)
 [95%] Generate netlist file "C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\impl\gwsynthesis\prelude.vg" completed

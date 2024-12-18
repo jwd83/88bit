@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module name="top_module" Lut="6" T_Register="21(0)" T_Alu="7(0)" T_Lut="75(6)" T_Ssram="4(0)">
-    <SubModule name="prelude" Register="8" Alu="7" Lut="37" T_Register="21(8)" T_Alu="7(7)" T_Lut="69(37)" T_Ssram="4(0)">
-        <SubModule name="decoder" Lut="7" T_Lut="7(7)"/>
-        <SubModule name="registers" Register="13" Lut="25" Ssram="4" T_Register="13(13)" T_Lut="25(25)" T_Ssram="4(4)"/>
+<Module name="top_module" Lut="6" T_Register="23(0)" T_Alu="15(0)" T_Lut="81(6)" T_Ssram="4(0)">
+    <SubModule name="prelude" Register="8" Alu="7" Lut="31" T_Register="23(8)" T_Alu="15(7)" T_Lut="75(31)" T_Ssram="4(0)">
+        <SubModule name="decoder" Lut="11" T_Lut="11(11)"/>
+        <SubModule name="registers" Register="15" Lut="33" Ssram="4" T_Register="15(15)" T_Lut="33(33)" T_Ssram="4(4)"/>
+        <SubModule name="alu" Alu="8" T_Alu="8(8)"/>
     </SubModule>
 </Module>

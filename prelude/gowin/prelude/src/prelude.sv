@@ -316,6 +316,8 @@ endmodule
 
 Prelude's ROM module
 
+*/
+
 module rom (
     input logic [7:0] address,
     output logic [7:0] data
@@ -344,14 +346,11 @@ end
 endmodule
 
 
-*/
-
 
 /*
 
 Read only memory uses rom.txt to generate the program ROM for Prelude
 
-*/
 
 module rom (
     input logic [7:0] address,
@@ -368,3 +367,4 @@ module rom (
         data = rom_contents[address];
     end
 endmodule
+*/

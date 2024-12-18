@@ -1,33 +1,20 @@
 GowinSynthesis start
 Running parser ...
 Analyzing Verilog file 'C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv'
-Undeclared symbol 'rio_out', assumed default net type 'wire'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":12)
-Compiling module 'top'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":1)
-Compiling module 'prelude'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":31)
-Compiling module 'registers'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":261)
-Compiling module 'rom'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":313)
-Extracting RAM for identifier 'rom_contents'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":317)
-Compiling module 'alu'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":234)
-Compiling module 'conditions'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":183)
-WARN  (EX3791) : Expression size 9 truncated to fit in target size 8("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":95)
-WARN  (EX2420) : Latch inferred for net 'in[7]'; We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":127)
-WARN  (EX3101) : 'in' inside always_comb block does not represent combinational logic("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":127)
-WARN  (EX1998) : Net 'src_b[2]' does not have a driver("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":53)
-WARN  (EX3670) : Actual bit length 7 differs from formal bit length 8 for port 'rio_in'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":11)
-WARN  (EX3670) : Actual bit length 1 differs from formal bit length 8 for port 'rio_out'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":12)
-NOTE  (EX0101) : Current top module is "top"
-WARN  (EX0211) : The output port "leds[7]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[6]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[5]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[4]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[3]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[2]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[1]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
-WARN  (EX0211) : The output port "leds[0]" of module "top" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":5)
+Compiling module 'top_module'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":1)
+Compiling module 'prelude'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":47)
+Compiling module 'registers'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":277)
+Compiling module 'rom'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":329)
+Extracting RAM for identifier 'rom_contents'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":333)
+Compiling module 'alu'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":250)
+Compiling module 'conditions'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":199)
+WARN  (EX3791) : Expression size 9 truncated to fit in target size 8("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":111)
+WARN  (EX2420) : Latch inferred for net 'in[7]'; We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (EX3101) : 'in' inside always_comb block does not represent combinational logic("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (EX1998) : Net 'src_b[2]' does not have a driver("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":69)
+NOTE  (EX0101) : Current top module is "top_module"
 [5%] Running netlist conversion ...
-WARN  (CV0016) : Input clk is unused("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":2)
-WARN  (CV0016) : Input reset is unused("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":3)
-WARN  (CV0016) : Input button is unused("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":4)
+WARN  (CV0016) : Input S2 is unused("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":4)
 Running device independent optimization ...
 [10%] Optimizing Phase 0 completed
 [15%] Optimizing Phase 1 completed
@@ -40,14 +27,25 @@ Running inference ...
 Running technical mapping ...
 [60%] Tech-Mapping Phase 0 completed
 [65%] Tech-Mapping Phase 1 completed
+WARN  (DI0003) : Latch inferred for net 'in[6]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[5]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[4]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[3]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[2]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[1]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[0]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'in[7]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'src_a[2]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'src_a[1]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
+WARN  (DI0003) : Latch inferred for net 'src_a[0]';We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":143)
 [75%] Tech-Mapping Phase 2 completed
 [80%] Tech-Mapping Phase 3 completed
 [90%] Tech-Mapping Phase 4 completed
-WARN  (NL0002) : The module "prelude" instantiated to "prelude" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":13)
-WARN  (NL0002) : The module "alu" instantiated to "alu" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":84)
-WARN  (NL0002) : The module "conditions" instantiated to "condition_engine" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":90)
-WARN  (NL0002) : The module "rom" instantiated to "instruction_rom" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":77)
-WARN  (NL0002) : The module "registers" instantiated to "r_file" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":72)
+WARN  (NL0002) : The module "prelude" instantiated to "prelude" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":20)
+WARN  (NL0002) : The module "alu" instantiated to "alu" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":100)
+WARN  (NL0002) : The module "conditions" instantiated to "condition_engine" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":106)
+WARN  (NL0002) : The module "rom" instantiated to "instruction_rom" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":93)
+WARN  (NL0002) : The module "registers" instantiated to "r_file" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":88)
 [95%] Generate netlist file "C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\impl\gwsynthesis\prelude.vg" completed
 [100%] Generate report file "C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\impl\gwsynthesis\prelude_syn.rpt.html" completed
 GowinSynthesis finish

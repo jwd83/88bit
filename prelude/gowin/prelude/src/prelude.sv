@@ -1,4 +1,4 @@
-module top(
+module top_module(
     input logic clk,
     input logic S1,
     input logic S2,
@@ -7,7 +7,7 @@ module top(
     output logic LED2,
     output logic LED3,
     output logic LED4,
-    output logic LED5,
+    output logic LED5
 );
 
     logic [7:0] leds;
@@ -31,7 +31,6 @@ module top(
 endmodule
 
 //------------------------------------------------------------------------------
-
 /*
 
 Prelude
@@ -42,8 +41,6 @@ This is designed to be a simple 8 bit RISC CPU inspired by Overture from Turing
 Complete
 
 */
-
-
 module prelude(
     input logic clk,
     input logic reset,
@@ -113,6 +110,8 @@ module prelude(
         casez (ir)
             // immediate
             8'b00zzzzzz: begin
+                src_a = 3'b000;
+                src_b = 3'b000;
                 dst = 3'b000;
                 in = {2'b00, ir[5:0]};
                 write_enable = 1'b1;
@@ -121,6 +120,8 @@ module prelude(
 
             // calculate
             8'b01zzzzzz: begin
+                src_a = 3'b001;
+                src_b = 3'b010;
                 dst = 3'b011;
                 in = alu_out;
                 write_enable = 1'b1;
@@ -129,6 +130,7 @@ module prelude(
             // copy
             8'b10zzzzzz: begin
                 src_a = ir[5:3];
+                src_b = 3'b000;
                 dst = ir[2:0];
                 in = out_a;
                 write_enable = 1'b1;
@@ -136,7 +138,10 @@ module prelude(
 
             // branch
             8'b11zzzzzz: begin
+                src_a = 3'b000;
+                src_b = 3'b000;
                 dst = 3'b000;
+                in = 8'b00000000;
                 write_enable = 1'b0;
             end
         endcase

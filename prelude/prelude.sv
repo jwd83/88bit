@@ -24,8 +24,6 @@ module prelude(
 
     // branching signals
     logic condition_result;
-    logic [7:0] r0_out; // register 0 output
-    logic [7:0] r3_out; // register 3 output
 
     // register file signals
     logic write_enable;

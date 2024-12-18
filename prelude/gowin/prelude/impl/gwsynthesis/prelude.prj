@@ -5,6 +5,7 @@
     <Device id="GW2AR-18C" package="QFN88" speed="8" partNumber="GW2AR-LV18QN88C8/I7"/>
     <FileList>
         <File path="C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv" type="verilog"/>
+        <File path="C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\top.sv" type="verilog"/>
     </FileList>
     <OptionList>
         <Option type="disable_insert_pad" value="0"/>

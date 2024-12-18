@@ -4,6 +4,10 @@
   {
    "Path" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
    "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/top.sv",
+   "Type" : "verilog"
   }
  ],
  "IncludePath" : [

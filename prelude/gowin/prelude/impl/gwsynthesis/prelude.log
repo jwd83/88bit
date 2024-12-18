@@ -1,0 +1,39 @@
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv'
+Compiling module 'prelude'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":11)
+Compiling module 'registers'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":241)
+Compiling module 'rom'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":293)
+Extracting RAM for identifier 'rom_contents'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":297)
+WARN  (EX3988) : Cannot open file 'rom.txt'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":301)
+Compiling module 'alu'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":214)
+Compiling module 'conditions'("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":163)
+WARN  (EX3791) : Expression size 9 truncated to fit in target size 8("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":75)
+WARN  (EX2420) : Latch inferred for net 'in[7]'; We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":107)
+WARN  (EX3101) : 'in' inside always_comb block does not represent combinational logic("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":107)
+WARN  (EX1998) : Net 'src_b[2]' does not have a driver("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":33)
+NOTE  (EX0101) : Current top module is "prelude"
+[5%] Running netlist conversion ...
+WARN  (CV0016) : Input rio_in is unused("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":14)
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+WARN  (NL0002) : The module "alu" instantiated to "alu" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":64)
+WARN  (NL0002) : The module "conditions" instantiated to "condition_engine" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":70)
+WARN  (NL0002) : The module "rom" instantiated to "instruction_rom" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":57)
+WARN  (NL0002) : The module "registers" instantiated to "r_file" is swept in optimizing("C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\src\prelude.sv":52)
+[95%] Generate netlist file "C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\impl\gwsynthesis\prelude.vg" completed
+[100%] Generate report file "C:\Users\jared\OneDrive\Ayrscott\Projects\88bit\prelude\gowin\prelude\impl\gwsynthesis\prelude_syn.rpt.html" completed
+GowinSynthesis finish

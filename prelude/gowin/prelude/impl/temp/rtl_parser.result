@@ -18,7 +18,7 @@
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
       "InstLine" : 73,
-      "InstName" : "r_file",
+      "InstName" : "registers",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
       "ModuleLine" : 282,
       "ModuleName" : "registers"
@@ -26,7 +26,7 @@
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
       "InstLine" : 87,
-      "InstName" : "instruction_rom",
+      "InstName" : "rom",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
       "ModuleLine" : 334,
       "ModuleName" : "rom"
@@ -42,7 +42,7 @@
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
       "InstLine" : 99,
-      "InstName" : "condition_engine",
+      "InstName" : "conditions",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
       "ModuleLine" : 204,
       "ModuleName" : "conditions"

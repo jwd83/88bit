@@ -70,7 +70,7 @@ module prelude(
     logic [7:0] out_b;
 
     // instantiate modules
-    registers r_file(
+    registers registers(
         .src_a(src_a),
         .src_b(src_b),
         .dst(dst),
@@ -84,7 +84,7 @@ module prelude(
         .rio_out(rio_out)
     );
 
-    rom instruction_rom (
+    rom rom (
         .address(pc),
         .data(ir)
     );
@@ -96,7 +96,7 @@ module prelude(
         .out(alu_out)
     );
 
-    conditions condition_engine (
+    conditions conditions (
         .r3(r3_out),
         .condition(ir[2:0]),
         .result(condition_result)

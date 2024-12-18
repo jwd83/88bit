@@ -33,6 +33,7 @@ module prelude(
     logic [7:0] in;
     logic [7:0] out_a;
     logic [7:0] out_b;
+    logic [7:0] reg_out;
 
     // instruction decoder
     decoder decoder(
@@ -54,7 +55,7 @@ module prelude(
         .reset(reset),
         .out_a(out_a),
         .out_b(out_b),
-        .rio_out(rio_out)
+        .rio_out(reg_out)
     );
 
     rom rom (
@@ -79,7 +80,7 @@ module prelude(
     // to the functional units
     always_comb begin
         next_pc = pc + 1;
-
+        rio_out = pc;
         casez (ir)
             8'b00zzzzzz: in = {2'b00, ir[5:0]};     // immediate
             8'b01zzzzzz: in = alu_out;              // calculate
@@ -336,6 +337,8 @@ module rom (
             8'h09: data = 8'b10011001;
             8'h0A: data = 8'b01000100;
             8'h0B: data = 8'b10011110;
+            8'h0C: data = 8'b00000000;
+            8'h0D: data = 8'b11000100;
 
             default: data = 8'b00000000;
         endcase

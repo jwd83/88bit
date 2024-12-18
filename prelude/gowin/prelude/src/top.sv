@@ -14,8 +14,8 @@ module top_module(
 
     prelude prelude(
         .clk(clk),
-        .reset(~S1),
-        .rio_in({7'b0, ~S2}),
+        .reset(S1),
+        .rio_in({7'b0, S2}),
         .rio_out(leds)
     );
 

@@ -17,42 +17,42 @@
     "SubInsts" : [
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "InstLine" : 38,
+      "InstLine" : 39,
       "InstName" : "decoder",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "ModuleLine" : 108,
+      "ModuleLine" : 109,
       "ModuleName" : "decoder"
      },
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "InstLine" : 47,
+      "InstLine" : 48,
       "InstName" : "registers",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "ModuleLine" : 273,
+      "ModuleLine" : 274,
       "ModuleName" : "registers"
      },
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "InstLine" : 60,
+      "InstLine" : 61,
       "InstName" : "rom",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "ModuleLine" : 320,
+      "ModuleLine" : 321,
       "ModuleName" : "rom"
      },
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "InstLine" : 65,
+      "InstLine" : 66,
       "InstName" : "alu",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "ModuleLine" : 246,
+      "ModuleLine" : 247,
       "ModuleName" : "alu"
      },
      {
       "InstFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "InstLine" : 72,
+      "InstLine" : 73,
       "InstName" : "conditions",
       "ModuleFile" : "C:/Users/jared/OneDrive/Ayrscott/Projects/88bit/prelude/gowin/prelude/src/prelude.sv",
-      "ModuleLine" : 195,
+      "ModuleLine" : 196,
       "ModuleName" : "conditions"
      }
     ]

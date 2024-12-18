@@ -1,6 +1,9 @@
-// my first constraints file. huzzah!
-//IO_LOC "but_a" 88
-//IO_LOC "but_b" 87
-//IO_LOC "led_0" 15
-//IO_LOC "led_1" 16
-//IO_LOC "led_2" 17
+IO_LOC "S1" 88
+IO_LOC "S2" 87
+IO_LOC "clk" 4
+IO_LOC "LED0"   15
+IO_LOC "LED1"   16
+IO_LOC "LED2"   17
+IO_LOC "LED3"   18
+IO_LOC "LED4"   19
+IO_LOC "LED5"   20

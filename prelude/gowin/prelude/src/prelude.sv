@@ -1,3 +1,21 @@
+module top(
+    input logic clk,
+    input logic reset,
+    input logic button,
+    output logic [7:0] leds
+);
+
+    prelude prelude(
+        .clk(clk),
+        .reset(reset),
+        .rio_in({6'b0, button}),
+        .rio_out(rio_out)
+    );
+
+endmodule
+
+//------------------------------------------------------------------------------
+
 /*
 
 Prelude
@@ -8,6 +26,8 @@ This is designed to be a simple 8 bit RISC CPU inspired by Overture from Turing
 Complete
 
 */
+
+
 module prelude(
     input logic clk,
     input logic reset,

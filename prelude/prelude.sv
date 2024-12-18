@@ -263,22 +263,9 @@ module registers(
         // hard wire special output registers
         rio_out = register_file[7];
 
-
-        if (src_a == 3'b111) begin
-            // when RIO is specified as a source, output the value of the `in` signal
-            out_a = in;
-        end else begin
-            // output the value of the selected registers
-            out_a = register_file[src_a];
-        end
-
-        if (src_b == 3'b111) begin
-            // when RIO is specified as a source, output the value of the `in` signal
-            out_b = in;
-        end else begin
-            // output the value of the selected registers
-            out_b = register_file[src_b];
-        end
+        // select the source registers, or use in as a source
+        out_a = (src_a == 3'b111) ? in : register_file[src_a];
+        out_b = (src_b == 3'b111) ? in : register_file[src_b];
     end
 
     always_ff @(posedge clk) begin
@@ -297,7 +284,6 @@ module registers(
                 register_file[dst] <= in;
         end
     end
-
 endmodule
 
 /*

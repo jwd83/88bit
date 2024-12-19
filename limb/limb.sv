@@ -82,6 +82,18 @@ module ram(
     output logic [7:0] data_out
 );
 
+    logic [7:0] ram[255:0];
+
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset) begin
+            ram <= 0;
+        end else if (write_enable) begin
+            ram[address] <= data_in;
+        end
+    end
+
+    assign data_out = ram[address];
+
 endmodule
 
 module alu(

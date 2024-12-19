@@ -14,11 +14,14 @@ classic games roam free, untethered from the shackles of DRM.
 ### In Progress
 * Prelude - A single cycle 8 bit CPU inspired by the "Overture" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/).
 ### Future
-* Great Scott! - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/), which was in turn inspired by the real world ARM architecture.
+* Limb - A single cycle 8 bit CPU inspired by the "LEG" architecture from  [Turing Complete](https://store.steampowered.com/app/1444480/Turing_Complete/), which was in turn inspired by the real world "ARM" architecture. Clearly some sort of limb inspired architecture.
 * ShinyRock16 - A completely bespoke 16 bit CPU supporting variable length instructions that I originally designed in the game "Turing Complete"
-* Marty - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
+* McFly - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
 * TBD - Multi cycle 8 bit CPU
-* McFly - Multi cycle RISC-V RV32I CPU
+* TBD - Multi cycle RISC-V RV32I CPU
+
+Names ideas - Great Scott, Marty, Biff, Brown Byte
+
 ```
 ┳┳┓   ┏┓ ┓
 ┃┃┃ ┏ ┣  ┃ ┓┏

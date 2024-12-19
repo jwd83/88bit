@@ -4,8 +4,8 @@ Prelude
 -A tribute to "Overture"
 Written by Jared De Blander in December of 2024
 
-This is designed to be a simple 8 bit RISC CPU inspired by Overture from Turing
-Complete
+This is designed to be a simple 8 bit RISC CPU inspired by "Overture" from the hit
+Steam game "Turing Complete"
 
 */
 module prelude(
@@ -15,24 +15,18 @@ module prelude(
     output logic [7:0] rio_out
 );
 
-    logic [7:0] pc; // program counter
-    logic [7:0] ir; // instruction register
-    logic [7:0] next_pc; // next program counter
-
-    // alu result
-    logic [7:0] alu_out;
-
-    // branching signals
-    logic condition_result;
-
-    // register file signals
-    logic write_enable;
-    logic [2:0] src_a;
-    logic [2:0] src_b;
-    logic [2:0] dst;
-    logic [7:0] in;
-    logic [7:0] out_a;
-    logic [7:0] out_b;
+    logic [7:0] pc;         // program counter
+    logic [7:0] ir;         // instruction register
+    logic [7:0] next_pc;    // next program counter
+    logic [7:0] alu_out;    // alu result
+    logic condition_result; // branching signals
+    logic write_enable;     // register file signals
+    logic [2:0] src_a;      // register file signals
+    logic [2:0] src_b;      // register file signals
+    logic [2:0] dst;        // register file signals
+    logic [7:0] in;         // register file signals
+    logic [7:0] out_a;      // register file signals
+    logic [7:0] out_b;      // register file signals
 
     // instruction decoder
     decoder decoder(
@@ -43,7 +37,7 @@ module prelude(
         .write_enable(write_enable)
     );
 
-    // instantiate modules
+    // register file
     registers registers(
         .src_a(src_a),
         .src_b(src_b),
@@ -57,11 +51,13 @@ module prelude(
         .rio_out(rio_out)
     );
 
+    // instruction rom
     rom rom (
         .address(pc),
         .data(ir)
     );
 
+    // alu
     alu alu (
         .alu_op(ir[5:0]),
         .in_a(out_a),
@@ -69,6 +65,7 @@ module prelude(
         .out(alu_out)
     );
 
+    // conditional branching
     conditions conditions (
         .value(out_a),
         .condition(ir[2:0]),

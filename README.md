@@ -19,8 +19,11 @@ classic games roam free, untethered from the shackles of DRM.
 * McFly - A simple as possible single cycle RISC-V 32 bit (RV32I compliant as possible) core
 * TBD - Multi cycle 8 bit CPU
 * TBD - Multi cycle RISC-V RV32I CPU
+### Misc
+LMC - A python emulator for a Little Man Computer
+LC3 - Possible future design.
 
-Names ideas - Great Scott, Marty, Biff, Brown Byte
+Names ideas - Great Scott, Marty, Biff, Brown Byte, Peach
 
 ```
 ┳┳┓   ┏┓ ┓

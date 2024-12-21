@@ -76,9 +76,33 @@ endmodule
 // r0 is always 0
 // r15 sets load/store address from RAM
 module registers(
+    input logic [3:0] src_a,
+    input logic [3:0] src_b,
+    input logic [3:0] dst,
+    input logic write_enable,
+    input logic [7:0] in,
+    input logic clk,
+    input logic reset,
+    output logic [7:0] out_a,
+    output logic [7:0] out_b,
+    output logic [7:0] rio_out
+  );
 
-);
+    logic [7:0] registers[15:1];
 
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset) begin
+            registers <= 0;
+        end else if (write_enable) begin
+            if(dst != 0) begin
+                registers[dst] <= in;
+            end
+            registers[dst] <= in;
+        end
+    end
+
+    assign out_a = ((src_a == 0) ? 8'b00000000 : registers[src_a]);
+    assign out_b = ((src_b == 0) ? 8'b00000000 : registers[src_b]);
 endmodule
 
 module ram(
@@ -126,9 +150,6 @@ module rom(
             default: data = 32'h00000000;
         endcase
     end
-
-
-
 endmodule
 
 module stack(
@@ -154,6 +175,4 @@ module stack(
             sp <= sp - 1;
         end
     end
-
-
 endmodule

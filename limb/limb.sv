@@ -60,39 +60,24 @@ module limb(
 
 endmodule
 
-module decoder();
+module decoder(
+    input logic [31:0] ir,
+    output logic [3:0] src_a,
+    output logic [3:0] src_b,
+    output logic [3:0] dst,
+    output logic [3:0] dst_selection,
+    output logic write_enable,
+    output logic opcode,
+);
+
 endmodule
 
 // 16 registers r0-r15.
 // r0 is always 0
 // r15 sets load/store address from RAM
 module registers(
-    input logic [3:0] src_a,
-    input logic [3:0] src_b,
-    input logic [3:0] dst,
-    input logic [7:0] in,
-    input logic write_enable,
-    input logic clk,
-    input logic reset,
-    output logic [7:0] out_a,
-    output logic [7:0] out_b
+
 );
-
-    logic [7:0] registers[15:1];
-
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
-            registers <= 0;
-        end else if (write_enable) begin
-            if(dst != 0) begin
-                registers[dst] <= in;
-            end
-            registers[dst] <= in;
-        end
-    end
-
-    assign out_a = ((src_a == 0) ? 8'b00000000 : registers[src_a]);
-    assign out_b = ((src_b == 0) ? 8'b00000000 : registers[src_b]);
 
 endmodule
 

@@ -1,13 +1,12 @@
 # RV32I support instructions
 
 Instruction  Opcode Binary
-        Type           Opcode Decicmal
+        Type           Opcode Decimal
 LB      I   0000011     3
 LBU     I   0000011     3
 LH      I   0000011     3
 LHU     I   0000011     3
 LW      I   0000011     3
-FENCE   ?   0001111     15
 ADDI    I   0010011     19
 ANDI    I   0010011     19
 ORI     I   0010011     19

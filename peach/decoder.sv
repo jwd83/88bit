@@ -14,15 +14,6 @@ McFly - a 32 bit RISC-V processor with a harvard architecture
 `define J_TYPE     7'b1100111 // 103
 `define J_TYPE_alt 7'b1101111 // 111
 
-module mcfly (
-    input logic clk,
-    input logic rst,
-    input logic [7:0] data_in,
-    output logic [7:0] data_out
-    ) ;
-
-endmodule
-
 module decoder (
     input logic [31:0] instruction,
     output logic type_r,

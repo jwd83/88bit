@@ -5,12 +5,12 @@ McFly - a 32 bit RISC-V processor with a harvard architecture
 */
 
 // Define the instruction types
-`define I_TYPE     7'b0000011 // 3
-`define I_TYPE_alt 7'b0010011 // 19
-`define S_TYPE     7'b0100011 // 35
-`define R_TYPE     7'b0110011 // 51
-`define B_TYPE     7'b1100011 // 99
-`define U_TYPE     7'b0010111 // 23
+`define I_TYPE     7'b0000011 //   3
+`define I_TYPE_alt 7'b0010011 //  19
+`define S_TYPE     7'b0100011 //  35
+`define R_TYPE     7'b0110011 //  51
+`define B_TYPE     7'b1100011 //  99
+`define U_TYPE     7'b0010111 //  23
 `define J_TYPE     7'b1100111 // 103
 `define J_TYPE_alt 7'b1101111 // 111
 

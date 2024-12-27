@@ -37,7 +37,8 @@ state = ? depends on opcode
 ? = 2 when alu reg[rd] = [rs1] op [rs2]
 ? = 3 when alu rsd = [rs1] op imm
 ? = 5 when branch ops pc + imm
-? = 7 when branch ops pc = rs1 + imm
+? = 7 write to memory
+? = 9 load from memory
 -------------------
 state 2:
 a<=reg[rs1]
@@ -71,6 +72,17 @@ if write to memory not complete state<=8
 else state<=0
 -------------------
 state 9:
+set load from memory address
+state <= 10
+-------------------
+state 10:
+if (load from memory complete) {
+    reg[rd] <= memory
+    state <= 0
+} else {
+    state <= 10
+}
+
 
 load ops
 

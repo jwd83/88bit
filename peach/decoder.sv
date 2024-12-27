@@ -38,33 +38,39 @@ state = ? depends on opcode
 ? = 3 when alu rsd = [rs1] op imm
 ? = 5 when branch ops pc + imm
 ? = 7 when branch ops pc = rs1 + imm
-
 -------------------
 state 2:
 a<=reg[rs1]
 b<=reg[rs2]
-state = 4
+state <= 4
 -------------------
 state 3:
-a=reg[rs1]
-b=imm
-state = 4
+a<=reg[rs1]
+b<=imm
+state <= 4
 -------------------
 state 4:
-reg[rd] = alu(a,b)
-state = 0
+reg[rd]<=alu(a,b)
+state<=0
 -------------------
 state 5:
 branch ops
-if (condition) state = 6
-else state = 0
+if (condition) state<=6
+else state<=0
 -------------------
 state 6:
-pc = pc + imm
-state = 0
+pc<=pc + imm
+state<=0
 -------------------
-
-state = 0
+state 7:
+write to memory
+state<=8
+-------------------
+state 8:
+if write to memory not complete state<=8
+else state<=0
+-------------------
+state 9:
 
 load ops
 

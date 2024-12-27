@@ -1,6 +1,35 @@
 /*
 
-McFly - a 32 bit RISC-V processor with a harvard architecture
+Peach
+
+a 32 bit RISC-V processor with a harvard architecture
+
+
+multicycle rv32i controlled by a finite state machine
+
+on reset set state to 255. copy rom into memory. when complete set pc to 0, state = 0
+state 255: copy rom into memory. when complete set pc to 0, state = 0
+
+state 0: ir <= memory[pc] state = 1
+state 1: decode ir and determine op type, next state: = ?
+
+
+alu reg=reg+reg ops
+state 2:
+
+alu reg+imm ops
+state 3:
+
+branch ops
+
+load ops
+
+store ops
+
+
+
+
+
 
 */
 

@@ -4,23 +4,67 @@ Peach
 
 a 32 bit RISC-V processor with a harvard architecture
 
+architecture components:
+
+pc: program counter
+ir: instruction register
+a: operand a
+b: operand b
+rd: destination register
+next_pc: next program counter
+
 
 multicycle rv32i controlled by a finite state machine
 
 on reset set state to 255. copy rom into memory. when complete set pc to 0, state = 0
 state 255: copy rom into memory. when complete set pc to 0, state = 0
 
-state 0: ir <= memory[pc] state = 1
+-------------------
+state 0:
+ir <= memory[pc]
+next_pc <= pc + 4
+state = 1
+-------------------
 state 1: decode ir and determine op type, next state: = ?
+alu op = ir decoded
+rd = ir decoded
+rs1 = ir decoded
+rs2 = ir decoded
+imm = ir decoded
+imm20 = ir decoded for upper 20 bits of imm (double check this)
+state = ? depends on opcode
 
+? = 2 when alu reg[rd] = [rs1] op [rs2]
+? = 3 when alu rsd = [rs1] op imm
+? = 5 when branch ops pc + imm
+? = 7 when branch ops pc = rs1 + imm
 
-alu reg=reg+reg ops
+-------------------
 state 2:
-
-alu reg+imm ops
+a<=reg[rs1]
+b<=reg[rs2]
+state = 4
+-------------------
 state 3:
-
+a=reg[rs1]
+b=imm
+state = 4
+-------------------
+state 4:
+reg[rd] = alu(a,b)
+state = 0
+-------------------
+state 5:
 branch ops
+if (condition) state = 6
+else state = 0
+-------------------
+state 6:
+pc = pc + imm
+state = 0
+-------------------
+
+state = 0
 
 load ops
 

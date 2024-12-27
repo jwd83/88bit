@@ -19,10 +19,14 @@ multicycle rv32i controlled by a finite state machine
 on reset set state to 255. copy rom into memory. when complete set pc to 0, state = 0
 state 255: copy rom into memory. when complete set pc to 0, state = 0
 
+More Research:
+
+https://stnolting.github.io/neorv32/
+
 -------------------
 state 0:
-ir <= memory[pc]
-next_pc <= pc + 4
+ir<=memory[pc]
+next_pc<=pc + 4
 state = 1
 -------------------
 state 1: decode ir and determine op type, next state: = ?
@@ -43,12 +47,12 @@ state = ? depends on opcode
 state 2:
 a<=reg[rs1]
 b<=reg[rs2]
-state <= 4
+state<=4
 -------------------
 state 3:
 a<=reg[rs1]
 b<=imm
-state <= 4
+state<=4
 -------------------
 state 4:
 reg[rd]<=alu(a,b)
@@ -73,14 +77,14 @@ else state<=0
 -------------------
 state 9:
 set load from memory address
-state <= 10
+state<=10
 -------------------
 state 10:
 if (load from memory complete) {
-    reg[rd] <= memory
-    state <= 0
+    reg[rd]<=memory
+    state<=0
 } else {
-    state <= 10
+    state<=10
 }
 
 

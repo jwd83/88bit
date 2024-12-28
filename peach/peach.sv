@@ -88,15 +88,6 @@ if (load from memory complete) {
 }
 
 
-load ops
-
-store ops
-
-
-
-
-
-
 */
 
 // Define the instruction types

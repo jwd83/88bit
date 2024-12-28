@@ -1,8 +1,8 @@
 /*
 
-Peach
+Peach: A series of 32 bit RISC-V processor
 
-a 32 bit RISC-V processor with a harvard architecture
+
 
 architecture components:
 

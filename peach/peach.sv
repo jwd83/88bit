@@ -125,6 +125,10 @@ module peach32 (
     logic [19:0] imm20;         // imm20 is the upper 20 bits of the immediate value for the currently executing instruction
 
 
+    // modules
+
+
+
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
             out <= 8'b0;
@@ -169,5 +173,28 @@ module decoder (
         type_b = (opcode == `B_TYPE);
         type_u = (opcode == `U_TYPE);
         type_j = (opcode == `J_TYPE) | (opcode == `J_TYPE_alt);
+    end
+endmodule
+
+module rom (
+    input logic [31:0] address,
+    output logic [31:0] data
+);
+
+
+    logic [31:0] rom_contents [0:4095]; // 4k x 32 bit rom  (131,072 bits, verify fpga has enough bram for this)
+    // pretty sure we can just chop off the lower 2 bits and then use the upper 30 bits as the address and that *should* work
+    // with the way we are bringing in this rom from the text file. given we are only on 4 byte boundaries the lower 2 bits
+    // should always be 0 and can be ignored. this should simplify the bram synthesis
+    logic [29:0] upper_address;
+
+    // load our program ROM from rom.txt
+    initial begin
+        $readmemb("rom.txt", rom_contents);
+    end
+
+    always_comb begin
+        upper_address = address[31:2];
+        data = rom_contents[upper_address];
     end
 endmodule

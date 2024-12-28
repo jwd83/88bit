@@ -111,6 +111,8 @@ module peach32 (
     logic [31:0] pc;            // pc stores the program counter
     logic [31:0] next_pc;       // next_pc is loaded into pc when the current instruction has finished executing
     logic [31:0] ir;            // ir is the instruction register holding the 32 bit instruction currently being executed
+    logic [31:0] memory_out;    // memory_out is the output from the memory module
+    logic [31:0] memory_addr;   // memory_addr is the address to read/write from/to memory
 
     // many of the following are only applicable to certain instruction types
     logic [2:0] funct3;         // funct3 is the 3 bit function code for the currently executing instruction
@@ -126,6 +128,10 @@ module peach32 (
 
 
     // modules
+    memory memory (
+        .address(memory_addr),
+        .data(memory_out)
+    );
 
 
 
@@ -176,17 +182,17 @@ module decoder (
     end
 endmodule
 
-module rom (
+module memory (
+    input logic clk,
+    input logic reset,
+    input logic write_enable,
     input logic [31:0] address,
-    output logic [31:0] data
+    input logic [31:0] data_in,
+    output logic [31:0] data_out
 );
 
 
     logic [31:0] rom_contents [0:4095]; // 4k x 32 bit rom  (131,072 bits, verify fpga has enough bram for this)
-    // pretty sure we can just chop off the lower 2 bits and then use the upper 30 bits as the address and that *should* work
-    // with the way we are bringing in this rom from the text file. given we are only on 4 byte boundaries the lower 2 bits
-    // should always be 0 and can be ignored. this should simplify the bram synthesis
-    logic [29:0] upper_address;
 
     // load our program ROM from rom.txt
     initial begin
@@ -194,7 +200,9 @@ module rom (
     end
 
     always_comb begin
-        upper_address = address[31:2];
-        data = rom_contents[upper_address];
+        // pretty sure we can just chop off the lower 2 bits and then use the upper 30 bits as the address and that *should* work
+        // with the way we are bringing in this rom from the text file. given we are only on 4 byte boundaries the lower 2 bits
+        // should always be 0 and can be ignored. this should simplify the bram synthesis
+        data = rom_contents[address[31:2]];
     end
 endmodule

@@ -23,6 +23,8 @@ More Research and code prep:
 
 https://stnolting.github.io/neorv32/
 
+
+look into using ALU to calculate branch conditional results
 -------------------
 state 0:  and use the alu to calculate next_pc, next state: 1
 ir<=memory[pc]      // load the instruction from memory into instruction register

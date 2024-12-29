@@ -14,7 +14,7 @@ rd: destination register
 next_pc: next program counter
 
 
-multicycle rv32i controlled by a finite state machine
+multi-cycle rv32i controlled by a finite state machine
 
 on reset set state to 255. copy rom into memory. when complete set pc to 0, state = 0
 state 255: copy rom into memory. when complete set pc to 0, state = 0
@@ -90,15 +90,6 @@ if (load from memory complete) {
 }
 
 
-load ops
-
-store ops
-
-
-
-
-
-
 */
 
 // Define the instruction types
@@ -110,6 +101,63 @@ store ops
 `define U_TYPE     7'b0010111 //  23
 `define J_TYPE     7'b1100111 // 103
 `define J_TYPE_alt 7'b1101111 // 111
+
+
+module peach32 (
+    input logic clk,
+    input logic reset,
+    output logic [7:0] out,
+);
+
+    logic [31:0] state;         // state stores the state of the current instructions phase
+    logic [31:0] pc;            // pc stores the program counter
+    logic [31:0] next_pc;       // next_pc is loaded into pc when the current instruction has finished executing
+    logic [31:0] ir;            // ir is the instruction register holding the 32 bit instruction currently being executed
+    logic [31:0] memory_out;    // memory_out is the output from the memory module
+    logic [31:0] memory_addr;   // memory_addr is the address to read/write from/to memory
+
+    // many of the following are only applicable to certain instruction types
+    logic [2:0] funct3;         // funct3 is the 3 bit function code for the currently executing instruction
+    logic [6:0] funct7;         // funct7 is the 7 bit function code for the currently executing instruction
+    logic [6:0] opcode;         // opcode is the 7 bit opcode for the currently executing instruction
+    logic [31:0] a;             // a is operand a for the currently executing instruction
+    logic [31:0] b;             // b is operand b for the currently executing instruction
+    logic [4:0] rs1;            // rs1 is the source register 1
+    logic [4:0] rs2;            // rs2 is the source register 2
+    logic [4:0] rd;             // rd is the destination register
+    logic [11:0] imm12;         // imm12 is the lower 12 bit immediate value for the currently executing instruction
+    logic [19:0] imm20;         // imm20 is the upper 20 bits of the immediate value for the currently executing instruction
+
+
+    // modules
+    memory memory (
+        .address(memory_addr),
+        .data(memory_out)
+    );
+
+
+
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset) begin
+            out <= 8'b0;
+            state <= 0;
+        end else begin
+            // rv32i multi-cycle state machine
+            case (state)
+                0: begin
+
+                end
+                1: begin
+
+                end
+                2: begin
+
+                end
+            endcase
+        end
+    end
+
+endmodule
 
 module decoder (
     input logic [31:0] instruction,
@@ -133,5 +181,30 @@ module decoder (
         type_b = (opcode == `B_TYPE);
         type_u = (opcode == `U_TYPE);
         type_j = (opcode == `J_TYPE) | (opcode == `J_TYPE_alt);
+    end
+endmodule
+
+module memory (
+    input logic clk,
+    input logic reset,
+    input logic write_enable,
+    input logic [31:0] address,
+    input logic [31:0] data_in,
+    output logic [31:0] data_out
+);
+
+
+    logic [31:0] rom_contents [0:4095]; // 4k x 32 bit rom  (131,072 bits, verify fpga has enough bram for this)
+
+    // load our program ROM from rom.txt
+    initial begin
+        $readmemb("rom.txt", rom_contents);
+    end
+
+    always_comb begin
+        // pretty sure we can just chop off the lower 2 bits and then use the upper 30 bits as the address and that *should* work
+        // with the way we are bringing in this rom from the text file. given we are only on 4 byte boundaries the lower 2 bits
+        // should always be 0 and can be ignored. this should simplify the bram synthesis
+        data = rom_contents[address[31:2]];
     end
 endmodule

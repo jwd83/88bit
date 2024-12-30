@@ -26,18 +26,17 @@ https://stnolting.github.io/neorv32/
 
 look into using ALU to calculate branch conditional results
 -------------------
-state 0:  and use the alu to calculate next_pc, next state: 1
+STATE_FETCH:  and use the alu to calculate next_pc, next state: 1
 ir<=memory[pc]      // load the instruction from memory into instruction register
 next_pc<=pc + 4     // calculate the program counter +4 with the alu
-state <= 1           // advance to state 1
+state <= STATE_DECODE          // advance to state 1
 -------------------
-state 1: decode ir and determine op type, next state: = ?
+STATE_DECODE: decode ir and determine op type, next state: = ?
 alu op <= ir decoded
 rd <= ir decoded
 rs1 <= ir decoded
 rs2 <= ir decoded
-imm12 <= ir decoded
-imm20 <= ir decoded for upper 20 bits of imm (double check this)
+imm_??? <= ir decoded
 state <= ? depends on opcode
 
 ? = 2 when alu reg[rd] = [rs1] op [rs2]
@@ -46,17 +45,17 @@ state <= ? depends on opcode
 ? = 7 write to memory
 ? = 9 load from memory
 -------------------
-state 2:
+STATE_ALU_REG_REG:
 a<=reg[rs1]
 b<=reg[rs2]
-state<=4
+state<=STATE_ALU_EXECUTE
 -------------------
-state 3:
+STATE_ALU_REG_IMM:
 a<=reg[rs1]
 b<=imm
-state<=4
+state<=STATE_ALU_EXECUTE
 -------------------
-state 4:
+STATE_ALU_EXECUTE:
 reg[rd]<=alu(a,b)
 state<=0
 -------------------
@@ -92,6 +91,19 @@ if (load from memory complete) {
 
 */
 
+`define STATE_FETCH         32'd0
+`define STATE_DECODE        32'd10
+`define STATE_ALU_REG_REG   32'd20
+`define STATE_ALU_REG_IMM   32'd30
+`define STATE_ALU_EXECUTE   32'd40
+`define STATE_LOAD          32'd40
+`define STATE_STORE         32'd50
+`define STATE_AUI_PC        32'd60
+`define STATE_BRANCH        32'd70
+`define STATE_JAL           32'd80
+`define STATE_JALR          32'd90
+`define STATE_LUI           32'd100
+
 // Define the instruction types
 `define I_TYPE     7'b0000011 //   3
 `define I_TYPE_alt 7'b0010011 //  19
@@ -109,6 +121,7 @@ module peach32 (
     output logic [7:0] out,
 );
 
+
     logic [31:0] state;         // state stores the state of the current instructions phase
     logic [31:0] pc;            // pc stores the program counter
     logic [31:0] next_pc;       // next_pc is loaded into pc when the current instruction has finished executing
@@ -125,9 +138,11 @@ module peach32 (
     logic [4:0] rs1;            // rs1 is the source register 1
     logic [4:0] rs2;            // rs2 is the source register 2
     logic [4:0] rd;             // rd is the destination register
-    logic [11:0] imm12;         // imm12 is the lower 12 bit immediate value for the currently executing instruction
-    logic [19:0] imm20;         // imm20 is the upper 20 bits of the immediate value for the currently executing instruction
-
+    logic [31:0] imm_u;
+    logic [31:0] imm_j;
+    logic [31:0] imm_b;
+    logic [31:0] imm_s;
+    logic [31:0] imm_i;
 
     // modules
     memory memory (
@@ -145,9 +160,39 @@ module peach32 (
             // rv32i multi-cycle state machine
             case (state)
                 0: begin
-
+                    // load the instruction from memory into instruction register
+                    ir <= memory_out;
+                    // calculate the program counter +4 with the alu
+                    next_pc <= pc + 4;
+                    // advance to state 1
+                    state <= 1;
                 end
                 1: begin
+                    // decode ir and determine op type
+                    opcode <= ir[6:0];
+                    funct3 <= ir[14:12];
+                    funct7 <= ir[31:25];
+                    rs1 <= ir[19:15];
+                    rs2 <= ir[24:20];
+                    rd <= ir[11:7];
+
+                    imm_i <= {{21{ir[31]}}, ir[30:20]}; // sign extend imm_i
+                    imm_u <= {ir[31:12], 12'b0};        // zero extend imm_u
+                    imm_j <= ;
+                    imm_b <= ;
+                    imm_s <= 0'b31;
+                    // determine next state based on opcode
+                    case (opcode)
+                        `R_TYPE: state <= 2;
+                        `I_TYPE: state <= 3;
+                        `I_TYPE_alt: state <= 3;
+                        `S_TYPE: state <= 5;
+                        `B_TYPE: state <= 5;
+                        `U_TYPE: state <= 5;
+                        `J_TYPE: state <= 5;
+                        `J_TYPE_alt: state <= 5;
+                        default: state <= 0;
+                    endcase
 
                 end
                 2: begin

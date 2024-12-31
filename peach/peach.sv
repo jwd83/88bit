@@ -178,6 +178,7 @@ module peach32 (
 
                     imm_i <= {{21{ir[31]}}, ir[30:20]}; // sign extend imm_i
                     imm_u <= {ir[31:12], 12'b0};        // zero extend imm_u
+                    // TODO: research the other immediate value formats
                     imm_j <= ;
                     imm_b <= ;
                     imm_s <= 0'b31;

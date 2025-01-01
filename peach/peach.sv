@@ -2,7 +2,8 @@
 
 Peach: A series of 32 bit RISC-V processor
 
-
+Some of my notes:
+https://docs.google.com/spreadsheets/d/1ICEoRUD06qAYWSxx6jYBzeptPAZinV3vcMwp9kGgkVI/edit?gid=136006519#gid=136006519
 
 architecture components:
 

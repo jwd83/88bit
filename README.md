@@ -5,7 +5,7 @@ CPU designs for use as soft cores in an FPGA.
 
 ## Project Layout
 
-[hdlbits/](/hdlbits/)
+[hdlbits/](/hdlbits/README.md)
 * Verilog Lessons from HDLBits
 
 [prelude/](/prelude/)

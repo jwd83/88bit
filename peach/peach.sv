@@ -31,6 +31,7 @@ STATE_FETCH:  and use the alu to calculate next_pc, next state: 1
 ir<=memory[pc]      // load the instruction from memory into instruction register
 next_pc<=pc + 4     // calculate the program counter +4 with the alu
 state <= STATE_DECODE          // advance to state 1
+
 -------------------
 STATE_DECODE: decode ir and determine op type, next state: = ?
 alu op <= ir decoded
@@ -39,6 +40,8 @@ rs1 <= ir decoded
 rs2 <= ir decoded
 imm_??? <= ir decoded
 state <= ? depends on opcode
+
+copy these bit locations out of the spreadsheet
 
 ? = 2 when alu reg[rd] = [rs1] op [rs2]
 ? = 3 when alu rsd = [rs1] op imm

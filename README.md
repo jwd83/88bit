@@ -1,4 +1,21 @@
-# [88bit](https://github.com/jwd83/88bit)
+# [Verilog](https://github.com/jwd83/verilog)
+
+This Repository contains my own research in SystemVerilog as well as several
+CPU designs for use as soft cores in an FPGA.
+
+## Project Layout
+
+[hdlbits/](/hdlbits/)
+* Verilog Lessons from HDLBits
+
+[prelude/](/prelude/)
+*   An 8 bit single-cycle soft core CPU modeled after the OVERTURE architecture from TC (starting verification)
+
+[peach/](/peach/)
+* A 32 bit RISC-V multi-cycle CPU (in progress)
+
+
+
 
 Legend has it that if you can synthesize these cores to run at exactly 88 MHz, they will resonate with the fabric of time and allow your Field Programmable Gate
 Array to tap into the echoes of gaming's past, conjuring a bygone era where

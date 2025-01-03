@@ -135,7 +135,7 @@ module peach32 (
 
     // many of the following are only applicable to certain instruction types
     logic [2:0] funct3;         // funct3 is the 3 bit function code for the currently executing instruction
-    logic [6:0] funct7;         // funct7 is the 7 bit function code for the currently executing instruction
+    logic [6:0] funct7;         // funct7 is the 7 bit function code for the currently executing instruction, only used for R type instructions
     logic [6:0] opcode;         // opcode is the 7 bit opcode for the currently executing instruction
     logic [31:0] a;             // a is operand a for the currently executing instruction
     logic [31:0] b;             // b is operand b for the currently executing instruction

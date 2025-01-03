@@ -52,6 +52,7 @@ copy these bit locations out of the spreadsheet
 STATE_ALU_REG_REG:
 a<=reg[rs1]
 b<=reg[rs2]
+aluop<=ir[parsed]
 state<=STATE_ALU_EXECUTE
 -------------------
 STATE_ALU_REG_IMM:
@@ -60,7 +61,7 @@ b<=imm
 state<=STATE_ALU_EXECUTE
 -------------------
 STATE_ALU_EXECUTE:
-reg[rd]<=alu(a,b)
+reg[rd]<=alu(a,b,op)
 state<=0
 -------------------
 state 5:
@@ -137,10 +138,11 @@ module peach32 (
     logic [2:0] funct3;         // funct3 is the 3 bit function code for the currently executing instruction
     logic [6:0] funct7;         // funct7 is the 7 bit function code for the currently executing instruction, only used for R type instructions
     logic [6:0] opcode;         // opcode is the 7 bit opcode for the currently executing instruction
+    logic [16:0] op37;          // op37 is the 17 bit opcode for the currently executing instruction
     logic [31:0] a;             // a is operand a for the currently executing instruction
     logic [31:0] b;             // b is operand b for the currently executing instruction
     logic [4:0] rs1;            // rs1 is the source register 1
-    logic [4:0] rs2;            // rs2 is the source register 2
+    logic [4:0] rs2;            // rs2 is the source register 2, it may also contain the shift amount for shift instructions
     logic [4:0] rd;             // rd is the destination register
     logic [31:0] imm_u;
     logic [31:0] imm_j;

@@ -183,7 +183,7 @@ module peach32 (
                     imm_i <= {{21{ir[31]}}, ir[30:20]}; // sign extend imm_i, 21 copies of the msb
                     imm_u <= {ir[31:12], 12'b0};        // zero extend imm_u, 12 zeros
                     imm_j <= {{12{ir[31]}}, ir[19:12], ir[20], ir[30:21]}; // sign extend imm_j, 12 copies of the msb
-                    imm_b <= ;
+                    imm_b <= {{20{ir[31]}}, ir[7], ir[30:25], ir[11:8], 1'b0}; // sign extend imm_b, 20 copies of the msb and an extra zero
                     imm_s <= {{21{ir[31]}}, ir[25:30],ir[11:7]}; // sign extend imm_s, 21 copies of the msb
                     // imm_r does not exist as r type instructions do not have an immediate field
                     // determine next state based on opcode

@@ -1,6 +1,6 @@
 # [HDLBits](https://github.com/jwd83/verilog/blob/master/hdlbits/README.md)
 
-This repo contains my personal solutions while working through the
+This portion of the repo contains my personal solutions while working through the
 [problems on HDLBits](https://hdlbits.01xz.net/wiki/Problem_sets) as well as some notes on
 Verilog in late 2024. ([see my stats](https://hdlbits.01xz.net/wiki/Special:VlgStats/5CBCEE65CFD17EBB))
 

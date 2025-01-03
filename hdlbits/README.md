@@ -1,6 +1,4 @@
-# HDLBits
-
-## [https://github.com/jwd83/verilog/hdlbits](https://github.com/jwd83/verilog/hdlbits)
+# [HDLBits](https://github.com/jwd83/verilog/blob/master/hdlbits/README.md)
 
 This repo contains my personal solutions while working through the
 [problems on HDLBits](https://hdlbits.01xz.net/wiki/Problem_sets) as well as some notes on

@@ -14,6 +14,7 @@ Steam game "Turing Complete" which itself was inspired by "ARM".
 16 general purpose registers
 r0 is hardwired to 0
 r15 is the RAM address register for load/store
+r14 is the stack pointer register
 
 special registers
 pc - program counter

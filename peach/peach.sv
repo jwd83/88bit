@@ -121,6 +121,9 @@ if (load from memory complete) {
 
 // Define the op37 values for the different instruction types
 
+`define OP37_ADD_I 17'b00000000000010011
+`define OP37_AND_I 17'b00000001110010011
+`define OP37_OR_I  17'b00000001100010011
 
 
 module peach32 (

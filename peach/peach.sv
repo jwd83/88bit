@@ -177,15 +177,15 @@ module peach32 (
         end else begin
             // rv32i multi-cycle state machine
             case (state)
-                0: begin
+                STATE_FETCH: begin
                     // load the instruction from memory into instruction register
                     ir <= memory_out;
                     // calculate the program counter +4 with the alu
                     next_pc <= pc + 4;
                     // advance to state 1
-                    state <= 1;
+                    state <= STATE_DECODE;
                 end
-                1: begin
+                STATE_DECODE: begin
                     // decode ir and determine op type
                     opcode <= ir[6:0];
                     funct3 <= ir[14:12];

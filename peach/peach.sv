@@ -126,7 +126,7 @@ module peach32 (
     output logic [7:0] out,
 );
 
-
+    // main registers
     logic [31:0] state;         // state stores the state of the current instructions phase
     logic [31:0] pc;            // pc stores the program counter
     logic [31:0] next_pc;       // next_pc is loaded into pc when the current instruction has finished executing

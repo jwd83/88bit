@@ -109,7 +109,7 @@ if (load from memory complete) {
 `define STATE_JALR          32'd90
 `define STATE_LUI           32'd100
 
-// Define the instruction types
+// Define the instruction types by opcode
 `define I_TYPE     7'b0000011 //   3
 `define I_TYPE_alt 7'b0010011 //  19
 `define S_TYPE     7'b0100011 //  35
@@ -118,6 +118,9 @@ if (load from memory complete) {
 `define U_TYPE     7'b0010111 //  23
 `define J_TYPE     7'b1100111 // 103
 `define J_TYPE_alt 7'b1101111 // 111
+
+// Define the op37 values for the different instruction types
+
 
 
 module peach32 (

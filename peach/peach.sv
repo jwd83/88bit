@@ -162,6 +162,12 @@ module peach32 (
         .data(memory_out)
     );
 
+    always_comb begin
+        op37 = {funct7, funct3, opcode};
+
+    end
+
+
 
 
     always_ff @(posedge clk or posedge reset) begin

@@ -63,8 +63,6 @@ CALL immediate address
 -> ret pops the return address off the stack and jumps to it
 RET
 
-
-
 +-----------------+
 | Register Layout |
 +-----------------+
@@ -90,6 +88,10 @@ and stack for variable tracking and an internal call stack for call/ret PC track
 | Reset Behavior |
 +----------------+
 
+state, program counter and registers set to 0,
+stack pointer set to ff
+
+
 */
 
 module limb(
@@ -99,18 +101,28 @@ module limb(
     output logic [7:0] rio_out
 );
 
-    logic [7:0] pc;         // program counter
-    logic [7:0] ir;         // instruction register
-    logic [7:0] next_pc;    // next program counter
-    logic [7:0] alu_out;    // alu result
-    logic condition_result; // branching signals
-    logic write_enable;     // register file signals
-    logic [3:0] src_a;      // register file signals
-    logic [3:0] src_b;      // register file signals
-    logic [3:0] dst;        // register file signals
-    logic [7:0] in;         // register file signals
-    logic [7:0] out_a;      // register file signals
-    logic [7:0] out_b;      // register file signals
+    logic [3:0] state;              // state machine state
+    logic [7:0] pc;                 // program counter
+    logic [7:0] ir;                 // instruction register
+    logic [7:0] next_pc;            // next program counter
+
+    logic [7:0] alu_out;            // alu result
+    logic       alu_in_a;           // alu control signals from decoder
+    logic       alu_in_b;           // alu control signals from decoder
+    logic       alu_eq;             // branching signals from alu comparisons
+    logic       alu_ne;             // branching signals from alu comparisons
+    logic       alu_lt;             // branching signals from alu comparisons
+    logic       alu_gt;             // branching signals from alu comparisons
+    logic       alu_le;             // branching signals from alu comparisons
+    logic       alu_ge;             // branching signals from alu comparisons
+
+    logic       rf_write_enable;    // register file signals
+    logic [3:0] rf_src_a;           // register file signals
+    logic [3:0] rf_src_b;           // register file signals
+    logic [3:0] rf_dst;             // register file signals
+    logic [7:0] rf_in;              // register file signals
+    logic [7:0] rf_out_a;           // register file signals
+    logic [7:0] rf_out_b;           // register file signals
 
     // instantiate modules
     rom rom ();

@@ -42,6 +42,7 @@ STOREI ra, imm // this is a little redundant.. wasn't sure if I wanted to includ
 ###########################
 
 >> branches <<
+-> branches set the next_pc to the immediate address if the condition is met
 BEQ rs1, rs2, immediate address
 BNE rs1, rs2, immediate address
 BLT rs1, rs2, immediate address

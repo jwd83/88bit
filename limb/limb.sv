@@ -35,7 +35,30 @@ XORI rd, rs1, rs2
 ################################
 LOAD rd, ra
 STORE rs, ra
-STOREI rs, imm
+STOREI ra, imm // this is a little redundant.. wasn't sure if I wanted to include it
+
+###########################
+# control flow operations #
+###########################
+
+>> branches <<
+BEQ rs1, rs2, imm
+BNE rs1, rs2, imm
+BLT rs1, rs2, imm
+BGT rs1, rs2, imm
+BLE rs1, rs2, imm
+BGE rs1, rs2, imm
+BRA imm | JMP imm
+
+>> calls <<
+CEQ rs1, rs2, imm
+CNE rs1, rs2, imm
+CLT rs1, rs2, imm
+CGT rs1, rs2, imm
+CLE rs1, rs2, imm
+CGE rs1, rs2, imm
+CALL imm
+
 
 
 +-----------------+

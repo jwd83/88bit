@@ -51,6 +51,7 @@ BGE rs1, rs2, immediate address
 BRA immediate address | JMP immediate address
 
 >> calls <<
+-> calls push the return address onto the stack if they are taken
 CEQ rs1, rs2, immediate address
 CNE rs1, rs2, immediate address
 CLT rs1, rs2, immediate address
@@ -58,6 +59,7 @@ CGT rs1, rs2, immediate address
 CLE rs1, rs2, immediate address
 CGE rs1, rs2, immediate address
 CALL immediate address
+-> ret pops the return address off the stack and jumps to it
 RET
 
 

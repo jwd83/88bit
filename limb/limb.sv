@@ -7,6 +7,37 @@ Written by Jared De Blander in December of 2024
 This is designed to be a simple 8 bit RISC CPU inspired by "LEG" from the hit
 Steam game "Turing Complete" which itself was inspired by "ARM".
 
+###################################
+|| Instruction Set Architecture  ||
+###################################
+# register to register operations #
+###################################
+ADD rd, rs1, rs2
+SUB rd, rs1, rs2
+AND rd, rs1, rs2
+OR rd, rs1, rs2
+NAND rd, rs1, rs2
+NOR rd, rs1, rs2
+NOT rd, rs1 // note this could be achieved with xor and 8'b11111111
+XOR rd, rs1, rs2
+
+######################################
+# register with immediate operations #
+######################################
+ADDI rd, rs1, imm
+SUBI rd, rs1, imm
+ANDI rd, rs1, rs2
+ORI rd, rs1, imm
+XORI rd, rs1, rs2
+
+################################
+# load/store memory operations #
+################################
+LOAD rd, ra
+STORE rs, ra
+STOREI rs, imm
+
+
 +-----------------+
 | Register Layout |
 +-----------------+

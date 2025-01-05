@@ -158,14 +158,14 @@ Condition bits for branch instructions are as follows:
 Condition      |              |
 bits           | Condition    | Notes
 ---------------|--------------|------------------------------
-           000 | Never        | No op, never take branch
-           001 | Value ==  0  |
-           010 | Value < 0    | signed
-           011 | Value <= 0   | signed
-           100 | Always       |
-           101 | Value != 0   |
-           110 | Value >= 0   | signed
-           111 | Value > 0    | signed
+000            | Never        | No op, never take branch
+001            | Value ==  0  |
+010            | Value < 0    | signed
+011            | Value <= 0   | signed
+100            | Always       |
+101            | Value != 0   |
+110            | Value >= 0   | signed
+111            | Value > 0    | signed
 ---------------|--------------|------------------------------
 
 ...or all of value bits together then invert to get if all bits are zero

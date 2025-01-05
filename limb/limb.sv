@@ -82,6 +82,10 @@ sp - stack pointer register (handled in hardware, not user accessible)
 Limb uses a Harvard architecture with dedicated program ROM and a separate RAM
 and stack for variable tracking and an internal call stack for call/ret PC tracking.
 
++----------------+
+| Reset Behavior |
++----------------+
+
 */
 
 module limb(

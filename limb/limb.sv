@@ -42,22 +42,23 @@ STOREI ra, imm // this is a little redundant.. wasn't sure if I wanted to includ
 ###########################
 
 >> branches <<
-BEQ rs1, rs2, imm
-BNE rs1, rs2, imm
-BLT rs1, rs2, imm
-BGT rs1, rs2, imm
-BLE rs1, rs2, imm
-BGE rs1, rs2, imm
-BRA imm | JMP imm
+BEQ rs1, rs2, immediate address
+BNE rs1, rs2, immediate address
+BLT rs1, rs2, immediate address
+BGT rs1, rs2, immediate address
+BLE rs1, rs2, immediate address
+BGE rs1, rs2, immediate address
+BRA immediate address | JMP immediate address
 
 >> calls <<
-CEQ rs1, rs2, imm
-CNE rs1, rs2, imm
-CLT rs1, rs2, imm
-CGT rs1, rs2, imm
-CLE rs1, rs2, imm
-CGE rs1, rs2, imm
-CALL imm
+CEQ rs1, rs2, immediate address
+CNE rs1, rs2, immediate address
+CLT rs1, rs2, immediate address
+CGT rs1, rs2, immediate address
+CLE rs1, rs2, immediate address
+CGE rs1, rs2, immediate address
+CALL immediate address
+RET
 
 
 

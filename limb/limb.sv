@@ -7,6 +7,18 @@ Written by Jared De Blander in December of 2024
 This is designed to be a simple 8 bit RISC CPU inspired by "LEG" from the hit
 Steam game "Turing Complete" which itself was inspired by "ARM".
 
+LIMB is now included in the ShinyRock google doc.
+
+https://docs.google.com/spreadsheets/d/1ICEoRUD06qAYWSxx6jYBzeptPAZinV3vcMwp9kGgkVI/edit?gid=235280740#gid=235280740
+
+
+7 branch instructions
+7 call instructions
+1 return instruction
+7 register to register operations
+5 register with immediate operations
+6 load/store/push/pop operations
+
 ###################################
 || Instruction Set Architecture  ||
 ###################################
@@ -18,7 +30,6 @@ AND rd, rs1, rs2
 OR rd, rs1, rs2
 NAND rd, rs1, rs2
 NOR rd, rs1, rs2
-NOT rd, rs1 // note this could be achieved with xor and 8'b11111111
 XOR rd, rs1, rs2
 
 ######################################
@@ -34,8 +45,11 @@ XORI rd, rs1, rs2
 # load/store memory operations #
 ################################
 LOAD rd, ra
-STORE rs, ra
+STORE ra, rs1
 STOREI ra, imm // this is a little redundant.. wasn't sure if I wanted to include it
+PUSH rs1
+PUSHI imm
+POP rd
 
 ###########################
 # control flow operations #
@@ -209,6 +223,29 @@ module alu(
     input logic [7:0] b,
     output logic [7:0] out
 );
+
+always_comb begin
+    case (opcode)
+        8'h00: out = a + b;
+        8'h01: out = a - b;
+        8'h02: out = a & b;
+        8'h03: out = a | b;
+        8'h04: out = ~(a & b);
+        8'h05: out = ~(a | b);
+        8'h06: out = ~a;
+        8'h07: out = a ^ b;
+        8'h08: out = a + b;
+        8'h09: out = a - b;
+        8'h0A: out = a & b;
+        8'h0B: out = a | b;
+        8'h0C: out = ~(a & b);
+        8'h0D: out = ~(a | b);
+        8'h0E: out = ~a;
+        8'h0F: out = a ^ b;
+        default: out = 8'b00000000;
+    endcase
+
+end
 
 endmodule
 

@@ -109,41 +109,41 @@ stack pointer set to ff
 
 opcode notes
 
-OPCODE      INSTRUCTION
--------------------------
-11000000    ADD
-11000001    SUB
-11000010    AND
-11000011    OR
-11000100    XOR
-11000101    NOR
-11000110    NAND
-11001000    ADDI
-11001001    SUBI
-11001010    ANDI
-11001011    ORI
-11001100    XORI
-11010000    BEQ
-11010001    BNE
-11010010    BLT
-11010011    BGT
-11010100    BLE
-11010101    BGE
-11011000    CEQ
-11011001    CNE
-11011010    CLT
-11011011    CGT
-11011100    CLE
-11011101    CGE
-10000000    LOAD
-10000001    STORE
-10000010    STOREI
-01000000    PUSH
-01000001    PUSHI
-01000010    POP
-01000011    BRA
-01000100    CALL
-00000000    RET
+INSTRUCTION     OPCODE      HEX
+---------------------------------
+ADD             11000000    C0
+SUB             11000001    C1
+AND             11000010    C2
+OR              11000011    C3
+NAND            11000110    C6
+NOR             11000101    C5
+XOR             11000100    C4
+ADDI            11001000    C8
+SUBI            11001001    C9
+ANDI            11001010    CA
+ORI             11001011    CB
+XORI            11001100    CC
+LOAD            10000000    80
+STORE           10000001    81
+STOREI          10000010    82
+PUSH            01000000    40
+PUSHI           01000001    41
+POP             01000010    42
+BEQ             11010000    D0
+BNE             11010001    D1
+BLT             11010010    D2
+BGT             11010011    D3
+BLE             11010100    D4
+BGE             11010101    D5
+BRA             01000011    43
+CEQ             11011000    D8
+CNE             11011001    D9
+CLT             11011010    DA
+CGT             11011011    DB
+CLE             11011100    DC
+CGE             11011101    DD
+CALL            01000100    44
+RET             00000000    00
 
 */
 
@@ -154,28 +154,29 @@ module limb(
     output logic [7:0] rio_out
 );
 
-    logic [3:0] state;              // state machine state
-    logic [7:0] pc;                 // program counter
-    logic [7:0] ir;                 // instruction register
-    logic [7:0] next_pc;            // next program counter
+    logic [31:0] ir;                 // instruction register
+    logic [7:0]  state;              // state machine state
+    logic [7:0]  pc;                 // program counter
+    logic [7:0]  next_pc;            // next program counter
+    logic [7:0]  sp;                 // stack pointer
 
-    logic [7:0] alu_out;            // alu result
-    logic       alu_in_a;           // alu control signals from decoder
-    logic       alu_in_b;           // alu control signals from decoder
-    logic       alu_eq;             // branching signals from alu comparisons
-    logic       alu_ne;             // branching signals from alu comparisons
-    logic       alu_lt;             // branching signals from alu comparisons
-    logic       alu_gt;             // branching signals from alu comparisons
-    logic       alu_le;             // branching signals from alu comparisons
-    logic       alu_ge;             // branching signals from alu comparisons
+    logic [7:0]  alu_out;            // alu result
+    logic        alu_in_a;           // alu control signals from decoder
+    logic        alu_in_b;           // alu control signals from decoder
+    logic        alu_eq;             // branching signals from alu comparisons
+    logic        alu_ne;             // branching signals from alu comparisons
+    logic        alu_lt;             // branching signals from alu comparisons
+    logic        alu_gt;             // branching signals from alu comparisons
+    logic        alu_le;             // branching signals from alu comparisons
+    logic        alu_ge;             // branching signals from alu comparisons
 
-    logic       rf_write_enable;    // register file signals
-    logic [3:0] rf_src_a;           // register file signals
-    logic [3:0] rf_src_b;           // register file signals
-    logic [3:0] rf_dst;             // register file signals
-    logic [7:0] rf_in;              // register file signals
-    logic [7:0] rf_out_a;           // register file signals
-    logic [7:0] rf_out_b;           // register file signals
+    logic        rf_write_enable;    // register file signals
+    logic [3:0]  rf_src_a;           // register file signals
+    logic [3:0]  rf_src_b;           // register file signals
+    logic [3:0]  rf_dst;             // register file signals
+    logic [7:0]  rf_in;              // register file signals
+    logic [7:0]  rf_out_a;           // register file signals
+    logic [7:0]  rf_out_b;           // register file signals
 
     // instantiate modules
     rom rom ();
@@ -260,7 +261,13 @@ module alu(
     input logic [7:0] opcode,
     input logic [7:0] a,
     input logic [7:0] b,
-    output logic [7:0] out
+    output logic [7:0] out,
+    output logic eq,
+    output logic ne,
+    output logic lt,
+    output logic gt,
+    output logic le,
+    output logic ge
 );
 
 always_comb begin

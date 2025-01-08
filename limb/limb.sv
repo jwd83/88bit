@@ -185,6 +185,38 @@ module limb(
     ram ram ();
     alu alu ();
 
+    // state machine to load instructions from ROM
+    // and execute them
+
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset) begin
+            state <= 8'b00000000;
+            pc <= 8'b00000000;
+            next_pc <= 8'b00000000;
+            sp <= 8'b11111111;
+        end else begin
+            case (state)
+            /*
+
+case STATE_FETCH_BEGIN:
+set ir to 24 bits of 0 + fetch instruction from ROM for upper 8 bits
+if upper 2 bits of these 8 are 00 go to STATE_DECODE
+else set upper 2 bites into MORE_BYTES_COUNTER and to to state STATE_MORE_BYTES
+
+case STATE_MORE_BYTES:
+fetch instruction from ROM for next 8 bits of the instruction register with their position determined by MORE_BYTES_COUNTER
+decrement more bytes counter
+if more bytes counter is 0 go to STATE_DECODE
+else go to STATE_MORE_BYTES:
+
+case STATE_DECODE:
+
+
+            */
+            endcase
+        end
+    end
+
 
 
 endmodule

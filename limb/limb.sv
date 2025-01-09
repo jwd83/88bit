@@ -210,7 +210,7 @@ if more bytes counter is 0 go to STATE_DECODE
 else go to STATE_MORE_BYTES:
 
 case STATE_DECODE:
-
+decide which state is next based on the opcode of the instruction
 
             */
             endcase

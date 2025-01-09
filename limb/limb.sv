@@ -212,6 +212,8 @@ else go to STATE_MORE_BYTES:
 case STATE_DECODE:
 decide which state is next based on the opcode of the instruction
 
+case STATE_ALU_REGISTER_WITH_REGISTER
+case STATE_ALU_REGISTER_WITH_IMMEDIATE
             */
             endcase
         end
